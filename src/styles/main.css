@@ -247,7 +247,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .section--hi { background: var(--paper-hi); }
 .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(24px, 4vw, 64px); align-items: end; margin-bottom: clamp(40px, 6vw, 80px); }
 .section-head .label { margin-bottom: 18px; }
-@media (max-width: 860px) { .section-head { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .section-head { grid-template-columns: minmax(0, 1fr); } }
 
 .rule { height: 1px; background: var(--line-2); border: 0; margin: 0; }
 .on-dark .rule { background: var(--night-line); }

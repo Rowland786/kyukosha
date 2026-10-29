@@ -13,7 +13,7 @@
 .stepper li.is-done span::after { content: ' ✓'; color: var(--ok); }
 .stepper li.is-on { color: var(--ink); padding-left: 10px; box-shadow: inset 3px 0 0 var(--accent); }
 @media (max-width: 960px) {
-  .form-layout { grid-template-columns: 1fr; }
+  .form-layout { grid-template-columns: minmax(0, 1fr); }
   .form-aside { position: static; }
   .form-title br { display: none; }
   .stepper { display: flex; overflow-x: auto; border: 0; gap: 6px; scrollbar-width: none; }
@@ -34,7 +34,7 @@
 .choices { display: grid; gap: 10px; }
 .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-@media (max-width: 640px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .grid-2, .grid-3 { grid-template-columns: minmax(0, 1fr); } }
 fieldset.field { border: 0; padding: 0; margin: 0; min-width: 0; }
 fieldset.field legend { font-size: 14px; font-weight: 600; margin-bottom: 8px; padding: 0; }
 .field .req, .field i.req { color: var(--accent); font-style: normal; margin-left: 3px; }
@@ -43,7 +43,7 @@ fieldset.field legend { font-size: 14px; font-weight: 600; margin-bottom: 8px; p
 .cats.is-bad .choice { border-color: rgba(228, 71, 28, 0.6); }
 .choice--cat em { font-style: normal; font-size: 10.5px; color: var(--ink-3); letter-spacing: 0.04em; margin-left: 6px; }
 .choice--cat b { display: inline; }
-@media (max-width: 640px) { .cats { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .cats { grid-template-columns: minmax(0, 1fr); } }
 .btn-line { justify-self: start; border: 1px dashed var(--line-2); background: transparent; border-radius: 999px; padding: 8px 16px; font-size: 14px; cursor: pointer; color: var(--ink-2); transition: all 0.2s; }
 .btn-line:hover { border-style: solid; border-color: var(--ink); color: var(--ink); }
 .btn-line[disabled] { opacity: 0.5; }
@@ -67,7 +67,7 @@ fieldset.field legend { font-size: 14px; font-weight: 600; margin-bottom: 8px; p
   .crow { grid-template-columns: 1fr 1fr; padding-bottom: 10px; border-bottom: 1px dashed var(--line-2); }
   .crow .textarea { grid-column: 1 / -1; }
   .crow .row-x { grid-column: 1 / -1; justify-self: end; }
-  .lrow { grid-template-columns: 1fr; padding-bottom: 10px; border-bottom: 1px dashed var(--line-2); }
+  .lrow { grid-template-columns: minmax(0, 1fr); padding-bottom: 10px; border-bottom: 1px dashed var(--line-2); }
   .lrow .row-x { justify-self: end; }
 }
 
@@ -107,4 +107,4 @@ fieldset.field legend { font-size: 14px; font-weight: 600; margin-bottom: 8px; p
 .receipt__next { border-top: 1px solid var(--line-2); padding-top: 16px; }
 .receipt__next p { color: var(--ink-2); font-size: 14.5px; }
 @media (max-width: 960px) { .receipt { grid-column: 1; } }
-@media (max-width: 560px) { .receipt__keys { grid-template-columns: 1fr; } .receipt__keys div + div { border-left: 0; border-top: 1px solid var(--ink); } }
+@media (max-width: 560px) { .receipt__keys { grid-template-columns: minmax(0, 1fr); } .receipt__keys div + div { border-left: 0; border-top: 1px solid var(--ink); } }

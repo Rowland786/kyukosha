@@ -12,7 +12,7 @@
 .toc a:hover { color: var(--ink); }
 .toc a.is-on { color: var(--ink); padding-left: 8px; box-shadow: inset 2px 0 0 var(--accent); }
 @media (max-width: 960px) {
-  .g-layout { grid-template-columns: 1fr; }
+  .g-layout { grid-template-columns: minmax(0, 1fr); }
   .toc { position: static; }
   .toc ol { columns: 2; column-gap: 20px; }
   .toc a { break-inside: avoid; }
@@ -31,7 +31,7 @@
 .g-rules div { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr); gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--line); }
 .g-rules dt { font-family: var(--f-mono); font-size: 13.5px; line-height: 1.6; padding-top: 3px; }
 .g-rules dd { margin: 0; font-size: 15.5px; line-height: 1.75; }
-@media (max-width: 560px) { .g-rules div { grid-template-columns: 1fr; gap: 2px; } }
+@media (max-width: 560px) { .g-rules div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
 .g-fig { margin: 1.8em 0 2em; }
 .g-fig img { width: 100%; height: auto; border: 1px solid var(--line-2); background: #111; }
 .g-fig figcaption { font-size: 13px; color: var(--ink-3); margin-top: 8px; line-height: 1.6; }

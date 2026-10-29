@@ -64,7 +64,7 @@
 .note { margin: 0; font-size: 14px; }
 .danger { color: var(--accent-ink); border-color: rgba(228, 71, 28, 0.4); justify-self: start; margin-top: 8px; }
 @media (max-width: 960px) {
-  .desk-app { grid-template-columns: 1fr; }
+  .desk-app { grid-template-columns: minmax(0, 1fr); }
   .desk-list { position: static; height: auto; max-height: 55vh; border-right: 0; border-bottom: 1px solid var(--line-2); }
-  .dd-grid, .chat-tr__row { grid-template-columns: 1fr; }
+  .dd-grid, .chat-tr__row { grid-template-columns: minmax(0, 1fr); }
 }

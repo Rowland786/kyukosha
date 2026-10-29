@@ -31,7 +31,7 @@
 
 @media (max-width: 960px) {
   .hero__canvas { left: 0; width: 100%; height: 72%; bottom: 14vw; opacity: 0.9; }
-  .hero__grid { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto; }
   .hero__copy { grid-column: 1; grid-row: 1; }
   .hero__act { grid-row: 3; }
   .hero__cap { display: none; }
@@ -53,7 +53,7 @@
   .step:nth-child(2) { top: calc(var(--header-h) + 52px); }
   .step:nth-child(3) { top: calc(var(--header-h) + 80px); }
 }
-@media (max-width: 760px) { .step { grid-template-columns: 1fr; } .step__no { font-size: 84px; } }
+@media (max-width: 760px) { .step { grid-template-columns: minmax(0, 1fr); } .step__no { font-size: 84px; } }
 
 /* ---------- 规则出处 ---------- */
 .verified__grid { display: grid; grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.6fr); gap: clamp(28px, 5vw, 80px); }
@@ -66,8 +66,8 @@
 .fact p { font-size: 14.5px; color: var(--ink-2); margin: 10px 0 0; }
 .verified__links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
 @media (max-width: 860px) {
-  .verified__grid { grid-template-columns: 1fr; }
-  .facts { grid-template-columns: 1fr; }
+  .verified__grid { grid-template-columns: minmax(0, 1fr); }
+  .facts { grid-template-columns: minmax(0, 1fr); }
   .fact, .fact + .fact { padding: 18px 0; border-right: 0; border-bottom: 1px solid var(--line); }
 }
 
@@ -100,7 +100,7 @@
 .note-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr); gap: clamp(28px, 5vw, 80px); }
 .note-list p { margin: 0 0 18px; font-size: 16.5px; color: var(--ink-2); padding-bottom: 18px; border-bottom: 1px solid var(--line); }
 .note-list p:last-child { border-bottom: 0; }
-@media (max-width: 860px) { .note-grid { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .note-grid { grid-template-columns: minmax(0, 1fr); } }
 .hero__cap { opacity: 0; transition: opacity 0.5s var(--ease); background: var(--paper); padding: 2px 8px; }
 .hero__cap.is-in { opacity: 1; }
 .hero .pill--ghost { background: rgba(216, 214, 208, 0.92); }

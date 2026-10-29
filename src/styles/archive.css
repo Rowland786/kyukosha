@@ -6,7 +6,7 @@
 .credit-card__txt { font-size: 14px; color: var(--ink-2); margin: 0 0 14px; }
 .credit-card__links { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 6px; font-size: 14px; }
 .credit-card__sync { font-size: 11px; line-height: 1.7; color: var(--ink-3); margin: 0; border-top: 1px dashed var(--line-2); padding-top: 12px; }
-@media (max-width: 900px) { .arc-head__grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .arc-head__grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* 吸顶工具栏 */
 .arc-bar { position: sticky; top: var(--head-offset, 0px); z-index: 40; background: rgba(216, 214, 208, 0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-block: 1px solid var(--line); padding: 12px 0 4px; transition: box-shadow 0.3s, top 0.5s var(--ease); }
@@ -71,7 +71,7 @@
 .dl-list a:hover::after { transform: translateY(4px); }
 .dl-list b { font-family: var(--f-mono); font-weight: 500; font-size: 15px; }
 .dl-list span { font-size: 13px; color: var(--ink-3); }
-@media (max-width: 860px) { .arc-dl__grid { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .arc-dl__grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* 大图弹窗 */
 .lb { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 20px; }
@@ -106,7 +106,7 @@
 .lb__copy { border: 0; background-color: transparent; cursor: pointer; padding: 0 0 1px; font-size: 13px; }
 @media (max-width: 860px) {
   .lb { padding: 0; place-items: stretch; }
-  .lb__panel { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); max-height: 100vh; max-height: 100dvh; height: 100%; }
+  .lb__panel { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); max-height: 100vh; max-height: 100dvh; height: 100%; }
   .lb__media { min-height: 0; height: 46vh; height: 46dvh; padding: 16px 52px; }
   .lb__media img { max-height: 100%; }
   .lb__side { padding: 16px var(--gutter) 28px; }
