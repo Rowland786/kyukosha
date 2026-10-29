@@ -64,6 +64,7 @@
   node -e "const c=require('crypto');const pw=process.argv[1];const s=c.randomBytes(16);console.log('scrypt$'+s.toString('base64')+'$'+c.scryptSync(pw,s,32,{N:16384,r:8,p:1}).toString('base64'))" "新口令"
   ```
 - **新案件提醒**：在自己管理的 Discord 服务器里建一个 Webhook，把地址设为 Netlify 环境变量 `DISCORD_WEBHOOK_URL`，重新部署后台。提醒只包含案件编号和类别。
+- **部署后台**：在 `server/` 目录运行 `netlify deploy --prod --dir public --functions functions`（Netlify CLI 需先 `netlify login`，站点已通过 `netlify link` 关联）。`netlify.toml` 里的 `command = "echo no build step"` 不要删，否则 CLI 会把仓库根目录当成前端项目来询问构建命令。
 - **后台测试**：`API=https://kyukosha-desk.netlify.app DESK_PASSWORD=口令 node tests/api-e2e.mjs`，会创建一个测试案件走完全流程并在最后删除。
 - **规则变化**：官方的举报面板、Trello 或员工口径变了，更新 `guide/index.html` 正文和末尾的核查记录，以及首页的核查日期。
 - **国内可访问性**：Netlify 的 `*.netlify.app` 在 2026-10-30 的多地测试中三大运营商均可访问；`*.supabase.co` 在中国移动被重置，`*.workers.dev`、`*.vercel.app` 在国内 DNS 被污染，换后台时不要选这几个域名。
