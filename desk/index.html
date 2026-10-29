@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>审核台 · 旧校舍</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f1010">
+<link rel="icon" href="/kyukosha/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/js/desk.js"></script>
+</head>
+<body class="page-desk" data-no-smooth data-solid-head>
+<include src="header.html" page="desk"></include>
+
+<main id="main" class="desk">
+  <section class="desk-login wrap" id="deskLogin">
+    <form class="form-card frame" id="loginForm">
+      <span class="label"><b>审核台</b><span class="bar"></span>Desk</span>
+      <h1 class="h-2" style="margin:14px 0 6px">协助者登录</h1>
+      <p class="fhint">只有协助者需要这个页面。玩家请去<a class="link-u" href="/kyukosha/track/">查询进度</a>。</p>
+      <label class="field" style="margin-top:16px"><span>口令</span><input class="input" type="password" name="password" autocomplete="current-password"></label>
+      <p class="err" id="loginErr" hidden></p>
+      <div class="form-nav"><button class="pill pill--sm" type="submit"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="pill__t">进入</span></button></div>
+    </form>
+  </section>
+
+  <section class="desk-app" id="deskApp" hidden>
+    <aside class="desk-list">
+      <div class="desk-list__head">
+        <b>案件</b>
+        <button class="btn-line btn-sm" id="refresh">刷新</button>
+        <button class="btn-line btn-sm" id="logout">退出</button>
+      </div>
+      <div class="desk-tabs" id="tabs"></div>
+      <ul class="desk-items" id="items"></ul>
+    </aside>
+    <section class="desk-detail" id="detail">
+      <div class="desk-empty">从左边选一个案件。</div>
+    </section>
+  </section>
+</main>
+</body>
+</html>

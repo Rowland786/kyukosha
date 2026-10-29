@@ -1,0 +1,55 @@
+# 构建并发布到 GitHub Pages：生成缩略图和图鉴数据、核对镜像完整性、打包整包下载
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: 核对镜像完整性
+        run: node scripts/mirror/verify.mjs
+      - name: 生成缩略图和图鉴数据
+        run: node scripts/mirror/build.mjs
+      - name: 构建网站
+        run: npx vite build
+      - name: 打包整包图片
+        run: |
+          mkdir -p dist/downloads
+          cd public/mirror
+          zip -q -0 -r ../../dist/downloads/gakuran-images-male.zip "images/男性" README.md
+          zip -q -0 -r ../../dist/downloads/gakuran-images-female.zip "images/女性" README.md
+          zip -q -0 -r ../../dist/downloads/gakuran-images-unisex.zip "images/通用" README.md
+          ls -la ../../dist/downloads
+      - run: touch dist/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

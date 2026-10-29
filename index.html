@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>旧校舍 · 学乱 Gakuran 中文资料与举报协助</title>
+<meta name="description" content="学乱 Gakuran 中文玩家的举报协助窗口与服饰图鉴镜像。中文举报教程、材料提交与进度查询，服饰资料由 Kaglorn 整理。">
+<meta name="theme-color" content="#d8d6d0">
+<link rel="icon" href="/kyukosha/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="旧校舍 · 学乱 Gakuran 中文资料与举报协助">
+<meta property="og:description" content="中文举报教程、材料提交与进度查询，以及完整的学乱服饰图鉴镜像。">
+<meta property="og:image" content="https://rowland786.github.io/kyukosha/og.png">
+<script type="module" src="/src/js/home.js"></script>
+</head>
+<body class="page-home">
+<include src="header.html" page="home"></include>
+
+<main id="main">
+  <section class="hero dots" aria-labelledby="heroTitle">
+    <div class="hero__stage">
+      <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+    </div>
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <span class="label" data-reveal><b>学乱 Gakuran</b><span class="bar"></span>中文玩家 · 非官方</span>
+        <h1 class="hero__title" id="heroTitle" data-split>中文玩家的<br>举报窗口和资料室</h1>
+        <p class="hero__sub" data-reveal data-delay=".25">录像、经过、聊天截图交到这里。<span>我们核对证据、写好英文说明，按官方流程投到 Gakuran Support，每一步你都查得到。</span></p>
+      </div>
+      <div class="hero__act">
+        <p class="hero__meta mono" data-reveal data-delay=".35">规则核查 2026/10/30 · 图鉴同步自 Kaglorn</p>
+        <div class="hero__btns" data-reveal data-delay=".45">
+          <a class="pill pill--accent" href="/kyukosha/report/">
+            <span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <span class="pill__t">提交举报材料<small>大约十分钟</small></span>
+          </a>
+          <a class="pill pill--ghost" href="/kyukosha/guide/">
+            <span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <span class="pill__t">先读教程</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap hero__word" aria-hidden="true">
+      <span class="hero__wordmark">KYŪKŌSHA</span>
+    </div>
+    <p class="hero__cap mono" id="heroCap">网点画面取自服饰图鉴</p>
+  </section>
+
+  <div class="marquee" aria-label="官方列出的可举报行为">
+    <div class="marquee__track" id="marquee">
+      <span>Exploiting 外挂</span><span>Bug Abuse 利用漏洞</span><span>Infinite Holding 无限压制</span><span>Permanent Trapping 永久困住</span><span>Prolonged Carrying 长时间扛人</span><span>Throwing into the void 扔出地图</span><span>Extreme Harassment 严重骚扰</span><span>Explicit Drawings 露骨涂画</span><span>Exploiter Affiliation 与外挂者勾结</span>
+    </div>
+  </div>
+
+  <section class="section steps-sec" id="desk">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="label" data-reveal><b>举报窗口</b><span class="bar"></span>Report desk</span>
+          <h2 class="h-1" data-split>从录像到回执<br>一共三步</h2>
+        </div>
+        <p class="lede" data-reveal>官方只受理一种玩家举报：在 Discord 的 Gakuran Support 服务器里，通过 Blox.report 表单提交，附上视频证据链接。不少中文玩家卡在三个地方：上不了 Discord，看不懂英文表单，或者录了视频却没拍到对方的用户名。这个窗口就是为这三处准备的。</p>
+      </div>
+
+      <div class="steps">
+        <article class="step frame" data-reveal>
+          <header class="step__head">
+            <span class="step__no num">01</span>
+            <span class="label"><b>录像</b><span class="bar"></span>Record</span>
+            <span class="tag">你在游戏里完成</span>
+          </header>
+          <div class="step__body">
+            <h3 class="h-2">看到违规就开始录，别剪</h3>
+            <p>录的过程中按左上角打开 MENU，切到 PLAYERLIST，让对方头顶的角色名和列表里的用户名出现在同一段视频里。头顶那个名字是游戏里的角色名，官方只认 Roblox 用户名。</p>
+            <p>压制、蹲点、拖着不让起身这类持续行为，官方员工多次说过要超过两分钟，录像本身也要有两分钟以上。几秒钟的片段不会被处理。</p>
+          </div>
+        </article>
+        <article class="step frame" data-reveal>
+          <header class="step__head">
+            <span class="step__no num">02</span>
+            <span class="label"><b>交材料</b><span class="bar"></span>Submit</span>
+            <span class="tag">在本站完成</span>
+          </header>
+          <div class="step__body">
+            <h3 class="h-2">把能核对的东西都交上来</h3>
+            <p>提交页会一项项问：对方的 Roblox 用户名、发生时间、在哪个地方、怎么回事。视频可以直接上传，也可以贴 B 站、网盘或其他链接。中文聊天照原样贴上，不用自己翻译。</p>
+            <p>提交完会拿到案件编号和查询码，凭这两样在查询页看进度、补材料。我们不要你的任何密码。</p>
+          </div>
+        </article>
+        <article class="step frame" data-reveal>
+          <header class="step__head">
+            <span class="step__no num">03</span>
+            <span class="label"><b>核对与代投</b><span class="bar"></span>Review &amp; file</span>
+            <span class="tag">协助者 + 官方 Discord 界面</span>
+          </header>
+          <div class="step__body">
+            <h3 class="h-2">核对、翻译、投递，都记在案件里</h3>
+            <p>协助者逐项核对：用户名查不查得到，录像看不看得清，是不是官方受理的行为。缺什么就在查询页留言，请你补。</p>
+            <p>材料齐了，站长用自己的 Discord 账号在官方表单里正常提交，再把提交时间、提交方式和官方回复记进你的案件。没真正提交之前，进度不会显示“已代投”。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--hi verified" id="verified">
+    <div class="wrap verified__grid">
+      <div class="verified__date" data-reveal>
+        <div class="dateblock"><span class="md"><span>10/</span><span>2026</span></span><span class="d">30</span></div>
+        <p class="mono mute" style="font-size:12px;margin:14px 0 0">最近一次规则核查（北京时间）</p>
+      </div>
+      <div>
+        <span class="label" data-reveal><b>规则出处</b><span class="bar"></span>Verified</span>
+        <h2 class="h-2 verified__title" data-reveal>教程里的每条规则都能找到原文</h2>
+        <p class="lede" data-reveal>来源有三处：官方 Trello 的 How to Report 卡片，Support 服务器里 Blox.report 面板和表单的原文，以及员工在主服务器的公开答复。员工的口头说法和书面规则对不上时，教程会把两种说法都写出来。</p>
+        <div class="facts">
+          <div class="fact" data-reveal>
+            <b class="fact__k">用户名</b>
+            <p>填对方的 Roblox 用户名，也就是个人主页里 @ 后面那一串。显示名称和头顶的角色名都不行，Blox.report 查不到这个用户名会直接拒收。</p>
+          </div>
+          <div class="fact" data-reveal data-delay=".08">
+            <b class="fact__k">两分钟</b>
+            <p>压制、蹲点、拖着不让起身，员工的说法是持续两分钟以上才处理，录像也要够两分钟。有员工明确说过，6 秒的片段不会处理。</p>
+          </div>
+          <div class="fact" data-reveal data-delay=".16">
+            <b class="fact__k">七天</b>
+            <p>举报七天内没人处理，机器人会自动驳回，可以重新提交。通过时 Blox.report 会私信提交人，说明举报已处理。</p>
+          </div>
+        </div>
+        <div class="verified__links" data-reveal>
+          <a class="pill pill--sm" href="/kyukosha/guide/"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="pill__t">读完整教程</span></a>
+          <a class="link-u" href="/kyukosha/guide/#sources">核查记录与出处</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--patina on-dark archive-sec" id="archive">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="label" data-reveal><b>服饰图鉴</b><span class="bar"></span>Archive</span>
+          <h2 class="h-1" data-reveal><span class="js-total">全部</span> 件服饰<br>原图原样保存</h2>
+        </div>
+        <div>
+          <p class="lede" data-reveal>图鉴是 Kaglorn 从官方 Trello 看板整理出来的，按性别、部位、稀有度和发型种族分好了类。本站完整镜像了它公开的全部记录和图片，换了一套手机上也好翻的界面，每一件都能追到原卡片和原文件。</p>
+          <p class="credit" data-reveal>资料作者 <a class="link-u" href="https://kaglorn.github.io/gakuran-clothes/" target="_blank" rel="noopener">Kaglorn</a> · 原始素材 <a class="link-u" href="https://trello.com/b/v3WatB1P/" target="_blank" rel="noopener">(学乱) Gakuran Trello</a></p>
+        </div>
+      </div>
+      <dl class="stats">
+        <div class="stat" data-reveal><dt class="mono">记录</dt><dd class="num" data-stat="records">—</dd></div>
+        <div class="stat" data-reveal data-delay=".06"><dt class="mono">图像文件</dt><dd class="num" data-stat="images">—</dd></div>
+        <div class="stat" data-reveal data-delay=".12"><dt class="mono">部位分类</dt><dd class="num" data-stat="categories">—</dd></div>
+        <div class="stat" data-reveal data-delay=".18"><dt class="mono">GIF 动图</dt><dd class="num" data-stat="gif">—</dd></div>
+      </dl>
+    </div>
+    <div class="strip" id="strip" aria-hidden="true"><div class="strip__row" id="stripRow"></div></div>
+    <div class="wrap archive-cta">
+      <a class="pill pill--accent" href="/kyukosha/archive/"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="pill__t">打开图鉴<small>按性别 · 部位 · 稀有度 · 种族</small></span></a>
+      <a class="pill pill--ghost" href="/kyukosha/about/#mirror"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="pill__t">完整性核对</span></a>
+    </div>
+  </section>
+
+  <section class="section note-sec">
+    <div class="wrap note-grid">
+      <div>
+        <span class="label" data-reveal><b>写在前面</b><span class="bar"></span>Before you start</span>
+        <h2 class="h-2" data-reveal style="margin-top:18px">这不是官方，<br>我们也不替官方做决定</h2>
+      </div>
+      <div class="note-list">
+        <p data-reveal>旧校舍是玩家自己办的站，和 Gakuran 开发组、Roblox 都没有关系。封不封号由官方的 Judges 决定，我们做的是把材料整理到他们看得懂、核对得了的程度。</p>
+        <p data-reveal>你不需要交出任何密码、Cookie 或验证码。举报材料只有协助者看得到，不公开，也不会写进任何公开的代码仓库。</p>
+        <p data-reveal>代投用的是站长本人的 Discord 账号，走官方表单。员工公开答复过：最好由受害者本人举报，本人没法用 Discord 时，可以由别人代报。能自己提交的玩家，教程里有完整步骤。</p>
+        <p data-reveal><a class="link-u" href="/kyukosha/about/#roles">网站、协助者和 Discord 界面各管哪一步 →</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<include src="footer.html"></include>
+</body>
+</html>

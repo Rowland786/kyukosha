@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>提交材料 · 旧校舍</title>
+<meta name="description" content="把学乱 Gakuran 里遇到的违规行为交给旧校舍：填对方用户名、时间地点、经过和证据，协助者核对后按官方流程提交。">
+<meta name="theme-color" content="#d8d6d0">
+<link rel="icon" href="/kyukosha/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/js/report.js"></script>
+</head>
+<body class="page-form" data-no-smooth data-solid-head>
+<include src="header.html" page="report"></include>
+
+<main id="main" class="form-page">
+  <div class="wrap form-layout">
+    <aside class="form-aside">
+      <span class="label"><b>提交材料</b><span class="bar"></span>Case intake</span>
+      <h1 class="h-1 form-title">把事情<br>交给我们</h1>
+      <p class="form-intro">一项项填，填不出来的先空着。草稿会自动存在这台设备上，关掉页面也不会丢。</p>
+      <ol class="stepper" id="stepper">
+        <li data-step="0"><span class="mono">00</span>类型</li>
+        <li data-step="1"><span class="mono">01</span>账号</li>
+        <li data-step="2"><span class="mono">02</span>经过</li>
+        <li data-step="3"><span class="mono">03</span>证据</li>
+        <li data-step="4"><span class="mono">04</span>联系</li>
+        <li data-step="5"><span class="mono">05</span>确认</li>
+      </ol>
+      <p class="form-aside__note">不确定怎么录、怎么填？先看 <a class="link-u" href="/kyukosha/guide/">中文举报教程</a>。</p>
+    </aside>
+
+    <form class="form-card frame" id="form" novalidate autocomplete="off">
+      <input type="text" name="website" id="hp" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+
+      <!-- 00 类型 -->
+      <section class="fstep" data-step="0">
+        <header class="fstep__head"><span class="mono">STEP 00</span><h2 class="h-2">你要办哪件事</h2></header>
+        <div class="choices" role="radiogroup" aria-label="案件类型">
+          <label class="choice"><input type="radio" name="type" value="report" checked><span><b>举报其他玩家</b><small>外挂、无限压制、扔出地图、严重骚扰等。材料齐了以后，由站长用自己的 Discord 账号按官方表单代为提交。</small></span></label>
+          <label class="choice"><input type="radio" name="type" value="game_appeal"><span><b>游戏封禁申诉（协助整理）</b><small>你在游戏里被封了，觉得是误封。我们帮你核对材料、写好英文，但申诉要你本人在 Support 服务器提交。</small></span></label>
+          <label class="choice"><input type="radio" name="type" value="discord_appeal"><span><b>Discord 封禁申诉（协助整理）</b><small>你被 Gakuran 的 Discord 服务器封了。官方用 appeal.gg 受理，必须登录被封的那个 Discord 账号，只能本人提交。</small></span></label>
+        </div>
+        <div class="notice notice--plain" data-show="report">
+          提交之前请确认手里有<b>视频</b>。官方只看视频证据，截图只能作补充。没有视频的举报，协助者也没法替你提交。
+        </div>
+        <div class="notice notice--plain" data-show="game_appeal discord_appeal" hidden>
+          申诉不能由别人代交：官方要求填写的是“你自己的”账号，appeal.gg 还会核对登录的 Discord 账号。我们能做的是帮你把材料和英文说明准备好，提交那一步你照着查询页里的步骤做就行。
+        </div>
+      </section>
+
+      <!-- 01 账号 -->
+      <section class="fstep" data-step="1" hidden>
+        <header class="fstep__head"><span class="mono">STEP 01</span><h2 class="h-2" data-t-report="被举报的是谁" data-t-appeal="被封的是哪个账号">被举报的是谁</h2></header>
+        <div data-show="report">
+          <p class="fhint">填对方的 <b>Roblox 用户名</b>：在对方个人主页里 @ 后面那一串英文数字。头顶显示的是游戏里的角色名，不是用户名；显示名称也不行。一件事有好几个人，就分别填上，每个人会单独提交一份举报。</p>
+          <div id="targets" class="targets"></div>
+          <button type="button" class="btn-line" id="addTarget">＋ 再加一个人</button>
+        </div>
+        <div data-show="game_appeal" hidden>
+          <label class="field"><span>你被封的 Roblox 用户名<i class="req">*</i></span><input class="input" name="appealRoblox" maxlength="40" placeholder="例如 xiaoming_2010（@ 后面那串）"><span class="hint">填错一个字母，官方就找不到你的封禁记录。可以点下面的按钮核对。</span></label>
+          <div class="lookup-row"><button type="button" class="btn-line" id="checkAppeal">核对用户名</button><span class="lookup-res" id="appealRes"></span></div>
+        </div>
+        <div data-show="discord_appeal" hidden>
+          <label class="field"><span>你被封的 Discord 用户名<i class="req">*</i></span><input class="input" name="appealDiscord" maxlength="40" placeholder="Discord 设置里“用户名”那一栏"></label>
+          <label class="field"><span>关联的 Roblox 用户名（如果有）</span><input class="input" name="appealRoblox2" maxlength="40"></label>
+        </div>
+      </section>
+
+      <!-- 02 经过 -->
+      <section class="fstep" data-step="2" hidden>
+        <header class="fstep__head"><span class="mono">STEP 02</span><h2 class="h-2">什么时候、在哪、怎么回事</h2></header>
+        <div class="grid-3">
+          <label class="field"><span>日期<i class="req">*</i></span><input class="input" type="date" name="date"></label>
+          <label class="field"><span>大概几点</span><input class="input" type="time" name="time"></label>
+          <label class="field"><span>时区</span>
+            <select class="select" name="tz"><option value="Asia/Shanghai">北京时间</option><option value="Asia/Tokyo">日本时间</option><option value="UTC">UTC</option><option value="other">其他（写在经过里）</option></select></label>
+        </div>
+        <div class="grid-2">
+          <label class="field"><span>服务器</span>
+            <select class="select" name="server"><option value="">不清楚</option><option value="public">公开服务器</option><option value="private">私人服务器（填了服务器码）</option></select></label>
+          <label class="field"><span>地点</span>
+            <select class="select" name="location">
+              <option value="">选一个，或者写在经过里</option>
+              <option>Nishikata Highschool 教学楼 / 教室</option><option>Gym 体育馆</option><option>Cafeteria 食堂</option><option>Basketball Court 篮球场</option><option>Soccer Pitch 足球场</option><option>Gakumart 便利店</option><option>Dante's Yakiniku Restaurant 烤肉店</option><option>Karaoke Bar 卡拉 OK</option><option>NyanMelo Cafe 咖啡店</option><option>Club Akuma 俱乐部</option><option>街道 / 其他室外</option><option>其他</option>
+            </select></label>
+        </div>
+        <fieldset class="field" data-show="report">
+          <legend>属于哪一类<i class="req">*</i></legend>
+          <div class="cats" id="cats"></div>
+        </fieldset>
+        <label class="field" data-show="report"><span>持续了多久</span><input class="input" name="duration" maxlength="40" placeholder="例如 大约 5 分钟；录像 03:20 长"><span class="hint">压制、蹲点、扛人这类持续行为，员工的口径是两分钟以上才处理。</span></label>
+        <label class="field"><span data-t-report="事情经过" data-t-appeal="被封的经过，以及为什么认为是误封">事情经过</span><i class="req">*</i>
+          <textarea class="textarea textarea--lg" name="narrative" maxlength="5000" placeholder="按时间顺序写：你在做什么，对方做了什么，持续了多久，你有没有离开、对方有没有跟着。写中文就行，协助者会翻译。"></textarea>
+          <span class="hint"><span id="narrCount">0</span> / 5000</span></label>
+        <div class="field">
+          <span>聊天记录原文</span>
+          <span class="hint">游戏里的文字聊天，照原样一条条贴上，别改字、别只挑一句。前后几句也贴上，官方要看上下文。语音里的话，写下大意并注明是语音。</span>
+          <div id="chat" class="chat-rows"></div>
+          <button type="button" class="btn-line" id="addChat">＋ 加一条</button>
+        </div>
+      </section>
+
+      <!-- 03 证据 -->
+      <section class="fstep" data-step="3" hidden>
+        <header class="fstep__head"><span class="mono">STEP 03</span><h2 class="h-2">证据</h2></header>
+        <div class="drop" id="drop" tabindex="0" role="button" aria-label="选择要上传的视频或图片">
+          <input type="file" id="fileInput" multiple accept="video/*,image/*,.mkv,.flv,.wmv" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+          <b>把录像拖到这里，或点击选择</b>
+          <span>视频和图片都可以，单个文件 200MB 以内，最多 12 个。传到本站的文件只有协助者能看到。</span>
+        </div>
+        <ul class="files" id="files"></ul>
+        <div class="field">
+          <span>或者贴视频链接</span>
+          <span class="hint">B 站、网盘、YouTube、Medal、Streamable 都行。网盘请设成不需要登录就能看、并写上提取码；B 站视频请确认已经过审能打开。</span>
+          <div id="links" class="link-rows"></div>
+          <button type="button" class="btn-line" id="addLink">＋ 再加一个链接</button>
+        </div>
+        <div class="grid-2" data-show="report">
+          <label class="field"><span>录像里打开过 PLAYERLIST 吗<i class="req">*</i></span>
+            <select class="select" name="playerlist"><option value="">请选择</option><option value="yes">打开了，能看到对方用户名</option><option value="no">没有打开</option><option value="unsure">不确定</option></select></label>
+          <label class="field"><span>在录像第几分几秒</span><input class="input" name="playerlistAt" maxlength="40" placeholder="例如 01:32"></label>
+        </div>
+        <div class="grid-2" data-show="report">
+          <label class="field"><span>违规从第几秒开始</span><input class="input" name="clipStart" maxlength="40" placeholder="例如 00:10"></label>
+          <label class="field"><span>到第几秒结束</span><input class="input" name="clipEnd" maxlength="40" placeholder="例如 03:05"></label>
+        </div>
+        <p class="notice" id="plWarn" hidden>没拍到 PLAYERLIST 的录像，官方很可能核对不了身份。如果录像里能从别的地方看清对方的用户名（比如对方的个人资料页），请在下面说明；实在没有，也可以先交上来，协助者会告诉你能不能用。</p>
+        <label class="field"><span>关于证据的补充</span><textarea class="textarea" name="evNote" maxlength="1000" placeholder="例如：视频前 30 秒是在找人，违规从 00:40 开始；第二段视频是同一个人换了衣服之后。"></textarea></label>
+      </section>
+
+      <!-- 04 联系 -->
+      <section class="fstep" data-step="4" hidden>
+        <header class="fstep__head"><span class="mono">STEP 04</span><h2 class="h-2">怎么称呼你</h2></header>
+        <div class="grid-2">
+          <label class="field"><span>称呼<i class="req">*</i></span><input class="input" name="nickname" maxlength="40" placeholder="随便一个能认出你的名字"></label>
+          <label class="field"><span>你自己的 Roblox 用户名</span><input class="input" name="myRoblox" maxlength="40" placeholder="选填，方便核对录像视角"></label>
+        </div>
+        <div class="grid-2">
+          <label class="field"><span>联系方式</span>
+            <select class="select" name="contactType"><option value="">不留，自己来查询页看进度</option><option value="qq">QQ</option><option value="wechat">微信</option><option value="email">邮箱</option><option value="discord">Discord</option></select></label>
+          <label class="field"><span>号码 / 地址</span><input class="input" name="contact" maxlength="120" placeholder="只有协助者看得到"></label>
+        </div>
+        <div class="grid-2" data-show="report">
+          <label class="field"><span>你和这件事的关系</span>
+            <select class="select" name="relation"><option value="victim">我是被针对的人</option><option value="witness">我在旁边看到了</option><option value="friend">替朋友交材料</option></select></label>
+          <label class="field"><span>你自己能用 Discord 吗</span>
+            <select class="select" name="canDiscord"><option value="no">不能 / 不方便</option><option value="yes">能，但不熟悉英文流程</option><option value="unsure">不确定</option></select></label>
+        </div>
+        <label class="field"><span>还有什么要说的</span><textarea class="textarea" name="extra" maxlength="2000" placeholder="比如对方之前也这样过、你已经自己举报过一次、希望协助者注意的地方。"></textarea></label>
+        <div class="notice notice--plain">我们<b>不会</b>向你要 Roblox 或 Discord 的密码、Cookie、验证码，也不需要你登录任何东西。谁找你要这些，都不是我们。</div>
+      </section>
+
+      <!-- 05 确认 -->
+      <section class="fstep" data-step="5" hidden>
+        <header class="fstep__head"><span class="mono">STEP 05</span><h2 class="h-2">核对一遍再提交</h2></header>
+        <div class="review" id="review"></div>
+        <label class="choice choice--consent"><input type="checkbox" id="consent"><span><b>我确认</b><small>材料是真实的，录像没有剪辑掉关键部分；我同意协助者查看这些材料，并在需要时用站长的 Discord 账号，按官方表单把整理后的英文内容和证据提交给 Gakuran 官方。我知道封不封号由官方决定。</small></span></label>
+        <p class="err" id="submitErr" role="alert" hidden></p>
+      </section>
+
+      <footer class="form-nav">
+        <button type="button" class="pill pill--ghost pill--sm" id="prev" hidden><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span><span class="pill__t">上一步</span></button>
+        <span class="form-nav__save mono" id="saveState"></span>
+        <button type="button" class="pill pill--sm" id="next"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="pill__t">下一步</span></button>
+        <button type="submit" class="pill pill--accent" id="submit" hidden><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="pill__t">提交材料</span></button>
+      </footer>
+    </form>
+
+    <section class="receipt frame" id="receipt" hidden aria-live="polite">
+      <span class="stamp">已收件<small>RECEIVED</small></span>
+      <h2 class="h-1">材料收到了</h2>
+      <p class="lede">请把下面两样东西存好。查进度、补材料都要用到它们。查询码只在这里显示一次，我们也找不回来。</p>
+      <dl class="receipt__keys">
+        <div><dt>案件编号</dt><dd class="mono" id="rcId"></dd></div>
+        <div><dt>查询码</dt><dd class="mono" id="rcKey"></dd></div>
+      </dl>
+      <div class="receipt__acts">
+        <button type="button" class="pill pill--sm" id="rcCopy"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h3"/></svg></span><span class="pill__t">复制两项</span></button>
+        <button type="button" class="pill pill--sm pill--ghost" id="rcSave"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"/></svg></span><span class="pill__t">保存回执</span></button>
+        <a class="pill pill--sm pill--accent" href="/kyukosha/track/" id="rcTrack"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="pill__t">去查询页</span></a>
+      </div>
+      <label class="choice"><input type="checkbox" id="rcRemember" checked><span><b>在这台设备上记住</b><small>下次打开查询页会自动填好。公用电脑请取消勾选。</small></span></label>
+      <div class="receipt__next">
+        <h3 class="h-3">接下来</h3>
+        <p>协助者会逐项核对，一般一到三天内会有动静。缺东西时，查询页里会出现“待补充”和具体要补什么。真正在 Discord 提交以后，进度会变成“已代投”，并写明提交的时间和方式；官方回复后再更新结果。</p>
+        <p id="rcTargets"></p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<include src="footer.html"></include>
+</body>
+</html>

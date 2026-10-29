@@ -1,0 +1,30 @@
+{
+  "name": "kyukosha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "mirror:sync": "node scripts/mirror/sync.mjs",
+    "mirror:build": "node scripts/mirror/build.mjs",
+    "mirror:verify": "node scripts/mirror/verify.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "playwright-core": "^1.48.2",
+    "sharp": "^0.33.5",
+    "vite": "^5.4.11"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.1.1",
+    "@fontsource/ibm-plex-mono": "^5.1.1",
+    "@fontsource/noto-serif-sc": "^5.1.1",
+    "@netlify/blobs": "^8.1.0",
+    "lenis": "^1.1.18"
+  },
+  "private": true
+}

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>服饰图鉴 · 旧校舍</title>
+<meta name="description" content="学乱 Gakuran 服饰图鉴的完整镜像：制服、发型、面部、配饰、滑板、终结技，按性别、部位、稀有度和种族查阅。资料由 Kaglorn 整理自官方 Trello。">
+<meta name="theme-color" content="#d8d6d0">
+<link rel="icon" href="/kyukosha/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/js/archive.js"></script>
+</head>
+<body class="page-archive" data-no-smooth>
+<include src="header.html" page="archive"></include>
+
+<main id="main">
+  <section class="arc-head">
+    <div class="wrap arc-head__grid">
+      <div>
+        <span class="label"><b>服饰图鉴</b><span class="bar"></span>Archive mirror</span>
+        <h1 class="h-1 arc-title">学乱服饰图鉴</h1>
+        <p class="lede">制服、发型、面部、配饰、滑板和终结技，全部来自官方 Trello 看板。原图、原字段一律照搬，原资料里空着的名称和编号，这里也空着。</p>
+      </div>
+      <aside class="credit-card frame" aria-label="资料来源">
+        <span class="label"><b>资料作者</b><span class="bar"></span>Credit</span>
+        <p class="credit-card__name">Kaglorn</p>
+        <p class="credit-card__txt">本图鉴的数据整理、图片切分、分类和中文标注都是 Kaglorn 的工作，原始素材来自 Gakuran 官方 Trello。本站只重做了查阅界面，并把全部公开文件镜像到本站，方便国内打开。</p>
+        <ul class="credit-card__links">
+          <li><a class="link-u" href="https://kaglorn.github.io/gakuran-clothes/" target="_blank" rel="noopener">原站 kaglorn.github.io/gakuran-clothes</a></li>
+          <li><a class="link-u" href="https://github.com/Kaglorn/gakuran-clothes" target="_blank" rel="noopener">原仓库 Kaglorn/gakuran-clothes</a></li>
+          <li><a class="link-u" href="https://trello.com/b/v3WatB1P/" target="_blank" rel="noopener">官方看板 (学乱) Gakuran Trello</a></li>
+          <li><a class="link-u" href="/kyukosha/mirror/" target="_blank" rel="noopener">原版页面（本站镜像，原样未改）</a></li>
+        </ul>
+        <p class="credit-card__sync mono" id="syncInfo">正在读取同步信息…</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="arc-bar" id="arcBar">
+    <div class="wrap">
+      <div class="arc-bar__row">
+        <div class="seg" id="genderSeg" role="tablist" aria-label="性别"></div>
+        <div class="seg seg--sm" id="viewSeg" role="tablist" aria-label="分类视角"></div>
+        <label class="arc-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <span class="sr-only">搜索</span>
+          <input type="search" id="q" placeholder="搜名称、卡片、稀有度、序号…" autocomplete="off">
+        </label>
+      </div>
+      <div class="chips" id="chips" aria-label="分类"></div>
+      <p class="arc-note" id="note" hidden></p>
+      <p class="arc-note arc-note--search" id="searchNote" hidden>从合集图切出的条目，名称印在图片上，原表没有录入文字，按名称搜不到；可以按部位、种族或序号查找。</p>
+    </div>
+  </div>
+
+  <section class="arc-body">
+    <div class="wrap">
+      <p class="arc-count mono" id="count" aria-live="polite"></p>
+      <div class="arc-grid" id="grid"></div>
+      <p class="arc-empty" id="empty" hidden>没有符合条件的条目。换个关键词，或者把分类切回“全部”。</p>
+    </div>
+  </section>
+
+  <section class="section section--hi arc-dl" id="downloads">
+    <div class="wrap arc-dl__grid">
+      <div>
+        <span class="label"><b>下载</b><span class="bar"></span>Downloads</span>
+        <h2 class="h-2" style="margin-top:16px">原始数据和整包图片</h2>
+        <p class="lede">数据表是 Kaglorn 发布的原文件，原样提供。整包图片按性别分成三个压缩包，里面的目录结构和原仓库一致。</p>
+      </div>
+      <ul class="dl-list" id="dlList">
+        <li><a href="/kyukosha/mirror/clothes.csv" download><b>clothes.csv</b><span>索引表，UTF-8 带 BOM，Excel / WPS 可直接打开</span></a></li>
+        <li><a href="/kyukosha/mirror/clothes.json" download><b>clothes.json</b><span>结构化数据，字段同上</span></a></li>
+        <li><a href="/kyukosha/mirror/README.md" download><b>README.md</b><span>Kaglorn 写的数据说明</span></a></li>
+        <li><a href="/kyukosha/mirror/manifest.json" download><b>manifest.json</b><span>本站镜像清单：每个文件的大小和 git 校验值</span></a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbTitle" hidden>
+  <div class="lb__scrim" data-close></div>
+  <div class="lb__panel">
+    <div class="lb__media">
+      <img id="lbImg" alt="">
+      <div class="lb__spin" id="lbSpin"></div>
+      <button class="icon-btn lb__nav lb__prev" id="lbPrev" aria-label="上一件"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <button class="icon-btn lb__nav lb__next" id="lbNext" aria-label="下一件"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+    <div class="lb__side">
+      <div class="lb__top">
+        <span class="mono lb__no" id="lbNo"></span>
+        <button class="icon-btn lb__close" data-close aria-label="关闭"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <h2 class="h-2" id="lbTitle"></h2>
+      <dl class="lb__fields" id="lbFields"></dl>
+      <div class="lb__acts" id="lbActs"></div>
+    </div>
+  </div>
+</div>
+
+<include src="footer.html"></include>
+</body>
+</html>

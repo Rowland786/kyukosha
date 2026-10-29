@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>查询进度 · 旧校舍</title>
+<meta name="description" content="凭案件编号和查询码查看举报材料走到了哪一步，按协助者的留言补充材料。">
+<meta name="theme-color" content="#d8d6d0">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/kyukosha/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/js/track.js"></script>
+</head>
+<body class="page-form" data-no-smooth data-solid-head>
+<include src="header.html" page="track"></include>
+
+<main id="main" class="form-page">
+  <div class="wrap form-layout">
+    <aside class="form-aside">
+      <span class="label"><b>查询进度</b><span class="bar"></span>Track</span>
+      <h1 class="h-1 form-title">材料走到<br>哪一步了</h1>
+      <p class="form-intro">输入提交时拿到的案件编号和查询码。查询码相当于钥匙，别发给别人，也别贴到群里。</p>
+      <ol class="flow">
+        <li><b>已收件</b>材料到了，等协助者查看</li>
+        <li><b>核对中</b>逐项核对用户名、录像和类别</li>
+        <li><b>待补充</b>缺东西时会留言，请你补</li>
+        <li><b>待提交</b>材料齐了，英文写好了</li>
+        <li><b>已代投</b>真正在官方表单里提交了才会显示</li>
+        <li><b>官方已回复</b>收到 Blox.report 的通知后记录</li>
+      </ol>
+    </aside>
+
+    <div class="track-main">
+      <form class="form-card frame track-login" id="login" novalidate>
+        <div class="grid-2">
+          <label class="field"><span>案件编号</span><input class="input mono" name="id" placeholder="GK1029-XXXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+          <label class="field"><span>查询码</span><input class="input mono" name="key" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+        </div>
+        <div class="track-login__row">
+          <button class="pill pill--sm" type="submit"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="pill__t">查询</span></button>
+          <div class="saved" id="saved"></div>
+        </div>
+        <p class="err" id="loginErr" role="alert" hidden></p>
+      </form>
+
+      <section class="case" id="case" hidden aria-live="polite">
+        <header class="case__head frame">
+          <div>
+            <span class="mono case__id" id="cId"></span>
+            <h2 class="h-1 case__status" id="cStatus"></h2>
+            <p class="case__desc" id="cDesc"></p>
+          </div>
+          <span class="stamp case__stamp" id="cStamp"></span>
+        </header>
+        <div class="case__request notice" id="cRequest" hidden></div>
+        <div class="case__appeal notice notice--ok" id="cAppeal" hidden></div>
+        <div class="case__grid">
+          <section class="case__timeline">
+            <h3 class="h-3">经过记录</h3>
+            <ol class="tl" id="cEvents"></ol>
+          </section>
+          <section class="case__summary">
+            <h3 class="h-3">你交的材料</h3>
+            <dl class="rv" id="cSummary"></dl>
+          </section>
+        </div>
+
+        <form class="form-card frame reply" id="reply" novalidate>
+          <header class="fstep__head"><span class="mono">SUPPLEMENT</span><h3 class="h-2">补充材料</h3></header>
+          <p class="fhint">协助者让你补的东西，或者你后来想起来的情况，都可以在这里交。补充以后，状态会回到“核对中”。</p>
+          <label class="field"><span>说明</span><textarea class="textarea" name="text" maxlength="3000" placeholder="例如：新录像 00:45 处打开了 PLAYERLIST，能看到对方用户名。"></textarea></label>
+          <div class="drop" id="drop" tabindex="0" role="button" aria-label="选择要上传的文件">
+            <input type="file" id="fileInput" multiple accept="video/*,image/*,.mkv,.flv,.wmv" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+            <b>补传录像或截图</b><span>单个文件 200MB 以内</span>
+          </div>
+          <ul class="files" id="files"></ul>
+          <div class="field"><span>补充链接</span><div class="link-rows" id="links"></div><button type="button" class="btn-line" id="addLink">＋ 再加一个链接</button></div>
+          <p class="err" id="replyErr" role="alert" hidden></p>
+          <div class="form-nav"><button class="pill pill--accent pill--sm" type="submit" id="replyBtn"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="pill__t">提交补充</span></button></div>
+        </form>
+      </section>
+    </div>
+  </div>
+</main>
+
+<include src="footer.html"></include>
+</body>
+</html>

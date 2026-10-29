@@ -1,0 +1,9 @@
+node_modules/
+dist/
+public/thumbs/
+public/data/archive.json
+.netlify/
+.secrets/
+*.log
+.env
+.env.*
