@@ -6,7 +6,7 @@ import { vision } from './vision.js';
 const abv = $('#abVision');
 if (abv) vision(abv, {
   src: `${BASE}mirror/images/${encodeURI('女性/制服/032_未命名.png')}`,
-  fit: 'contain', scale: innerWidth > 960 ? 0.8 : 1.1, align: innerWidth > 960 ? [0.8, 1] : [0.5, 0.15],
+  fit: 'contain', scale: innerWidth > 960 ? 0.8 : 0.82, align: innerWidth > 960 ? [0.8, 1] : [0.5, 0.42],
   fade: 0.2, points: 70, mesh: 0.3, meshFrom: [0.5, 0.2], seed: 21, contrast: 1.45, dim: 0.7,
   crossAt: [0.72, 0.5], chain: innerWidth > 960 ? { from: [0.45, 0.1], to: [0.6, 0.95], n: 6, r: 0.07 } : null,
   boxes: [{ x: 0.08, y: 0.0, w: 0.84, h: 0.12, label: '角色名 · 不是 ID', tone: 'red', dashed: true, labelBelow: true }],
