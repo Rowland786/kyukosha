@@ -17,7 +17,7 @@ if (hero) {
     chain: mobile() ? null : { from: [0.05, 0.22], to: [0.52, 0.94], n: 8, r: 0.1 },
     boxes: [
       { ...NAME_BOX, label: '头顶名称 = 角色名 ≠ ID', tone: 'red', dashed: true },
-      { x: 0.2, y: 0.2, w: 0.7, h: 0.79, label: 'SUBJECT 01 · 待核对', labelBelow: false, sub: 'PLAYERLIST → Roblox 用户名' },
+      { x: 0.2, y: 0.2, w: 0.7, h: 0.79, label: '被举报人 · 待核对', labelBelow: false, sub: '在 PLAYERLIST 里查用户名' },
     ],
     contrast: 1.5, dim: 0.95,
   });
@@ -30,7 +30,7 @@ if (idv) {
     src: img('女性/制服/033_未命名.png'),
     fit: 'cover', focus: [0.5, 0.22], points: 60, mesh: 0.3, meshFrom: [0.5, 0.05], seed: 3,
     crosshair: true, crossAt: [0.5, 0.18], lens: true, glitch: true,
-    boxes: [{ ...NAME_BOX, label: '角色名', tone: 'red', dashed: true, labelBelow: true, sub: '可以随便改，不能当 ID' }],
+    boxes: [{ ...NAME_BOX, label: '角色名', tone: 'red', dashed: true, labelBelow: true, sub: '可以随时改，不能当 ID' }],
     contrast: 1.4, dim: 0.95,
   });
 }

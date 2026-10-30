@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
+<meta name="author" content="超工口级魔法少女">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>提交举报 · 旧校舍</title>
 <meta name="description" content="在学乱 Gakuran 里遇到违规的人：交上对方的 Roblox ID 和一段有效的视频（不收 OBS 录屏），旧校舍核对后按官方流程代为提交。">
@@ -15,14 +16,14 @@
 <main id="main" class="rp">
   <aside class="rp__scene" aria-hidden="true">
     <canvas class="vision" id="sceneVision"></canvas>
-    <span class="rp__corner rp__corner--tl mono">INTAKE DESK · 收件台</span>
-    <span class="rp__corner rp__corner--bl mono" id="sceneCap">SUBJECT · 待确认</span>
-    <span class="rp__corner rp__corner--br mono">No.0019 · 实机截图</span>
+    <span class="rp__corner rp__corner--tl mono">收件台</span>
+    <span class="rp__corner rp__corner--bl mono" id="sceneCap">被举报人：待核对</span>
+    <span class="rp__corner rp__corner--br mono">画面：图鉴 No.0019</span>
   </aside>
 
   <section class="rp__log">
     <header class="rp__head">
-      <span class="kicker"><span class="dot"></span><b>提交举报</b><i></i>REPORT</span>
+      <span class="kicker"><span class="dot"></span><b>提交举报</b></span>
       <ol class="rp__steps" id="steps" aria-label="进度">
         <li data-s="1"><b>01</b>对方 ID</li>
         <li data-s="2"><b>02</b>视频</li>
@@ -35,43 +36,42 @@
 
       <!-- 开场 -->
       <div class="dlg" data-step="0">
-        <p class="dl dl--n">放学后的旧校舍，二楼走廊尽头。收件台上压着一张空表，只有两格。</p>
-        <p class="dl"><span class="who">收件员</span>要报一个人，我只要两样东西：他的 <b>Roblox ID</b>，和一段<b>能看清的视频</b>。别的不用你操心。</p>
+        <p class="dl"><span class="who">收件员</span>举报要交两样东西：对方的 <b>Roblox ID</b>，和一段录下他违规的<b>视频</b>。其他都可以不填。</p>
         <div class="opts">
-          <button type="button" class="opt" data-go="1"><span class="opt__n">1.</span>「先说是谁。」</button>
-          <button type="button" class="opt" data-help="id"><span class="opt__n">2.</span>「我不知道怎么找他的 ID。」</button>
-          <a class="opt" href="/kyukosha/guide/"><span class="opt__n">3.</span>「我先去看看教程。」<span class="opt__x">— 离开</span></a>
+          <button type="button" class="opt" data-go="1"><span class="opt__n">1.</span>「我知道他的 ID。」</button>
+          <button type="button" class="opt" data-help="id"><span class="opt__n">2.</span>「ID 去哪找？」</button>
+          <a class="opt" href="/kyukosha/guide/"><span class="opt__n">3.</span>「先看教程。」<span class="opt__x">打开举报教程</span></a>
         </div>
         <div class="dl-help" id="helpId" hidden>
-          <p class="dl"><span class="who">收件员</span>他头顶那行字是角色名，能随便改，不算数。进游戏按左上角 MENU，点 PLAYERLIST，那里列着每个人的 Roblox 用户名。或者打开他的 Roblox 主页：@ 后面是用户名，网址里 <span class="mono">users/</span> 后面那串数字是 ID。三样里给我一样就行。</p>
-          <div class="opts"><button type="button" class="opt" data-go="1"><span class="opt__n">1.</span>「明白了，我来填。」</button></div>
+          <p class="dl"><span class="who">收件员</span>头顶那行字是角色名，可以随时改，不能当 ID。进游戏按左上角 MENU，点 PLAYERLIST，每个角色旁边就是他的 Roblox 用户名。也可以打开他的 Roblox 主页：@ 后面是用户名，网址里 <span class="mono">users/</span> 后面的数字是 ID。三样填一样就行。</p>
+          <div class="opts"><button type="button" class="opt" data-go="1"><span class="opt__n">1.</span>「知道了，去填。」</button></div>
         </div>
       </div>
 
       <!-- 01 对方 ID -->
       <div class="dlg" data-step="1" hidden>
-        <p class="dl dl--me">「先说是谁。」</p>
-        <p class="dl"><span class="who">收件员</span>写给我。用户名、数字 ID、主页链接都行。</p>
+        <p class="dl dl--me">「我知道他的 ID。」</p>
+        <p class="dl"><span class="who">收件员</span>填在下面，用户名、数字 ID、主页链接都可以，然后点“核对”。</p>
         <div class="slot">
-          <label class="slot__lab mono" for="target">ROBLOX ID / USERNAME</label>
+          <label class="slot__lab mono" for="target">对方的 Roblox 用户名或 ID</label>
           <div class="slot__row">
             <input class="input slot__in" id="target" name="target" maxlength="120" placeholder="builderman　/　156　/　roblox.com/users/156/profile" autocapitalize="off" spellcheck="false">
             <button type="button" class="btn btn--solid btn--sm" id="lookupBtn"><span class="btn__t">核对</span><span class="btn__ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></button>
           </div>
           <div id="targetsMore"></div>
-          <button type="button" class="slot__add" id="addTarget">＋ 视频里还有别人一起违规</button>
+          <button type="button" class="slot__add" id="addTarget">＋ 还有别人一起违规</button>
         </div>
         <div id="lookupLog"></div>
         <div class="opts" id="idNext" hidden>
-          <button type="button" class="opt" data-go="2"><span class="opt__n">1.</span>「就是他。」</button>
-          <button type="button" class="opt" data-refocus><span class="opt__n">2.</span>「不对，我重新填。」</button>
+          <button type="button" class="opt" data-go="2"><span class="opt__n">1.</span>「是他，下一步。」</button>
+          <button type="button" class="opt" data-refocus><span class="opt__n">2.</span>「不是，重填。」</button>
         </div>
       </div>
 
       <!-- 02 视频 -->
       <div class="dlg" data-step="2" hidden>
-        <p class="dl dl--me">「就是他。」</p>
-        <p class="dl"><span class="who">收件员</span>视频。传文件也行，给链接也行。从头录到尾、别剪，画面里要看得出是谁。<span class="sk sk--fys">警觉</span><span class="chk">[提醒]</span> — OBS 录的不收。</p>
+        <p class="dl dl--me">「是他，下一步。」</p>
+        <p class="dl"><span class="who">收件员</span>然后是视频，可以上传文件，也可以贴链接。要从违规开始录到结束，不剪辑，画面里能认出是他。<b>OBS 录的视频不收。</b></p>
         <div class="slot">
           <div class="tabs" role="tablist">
             <button type="button" role="tab" aria-selected="true" data-tab="file">上传文件</button>
@@ -81,28 +81,28 @@
             <div class="drop" id="drop" tabindex="0" role="button" aria-label="选择视频文件">
               <input type="file" id="fileInput" multiple accept="video/*,image/*,.mkv,.flv,.wmv" hidden>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
-              <b>拖进来，或点这里选视频</b>
-              <span class="mono">MP4 / MOV / WEBM · 单个 200MB 以内</span>
+              <b>把视频拖到这里，或点击选择</b>
+              <span class="mono">MP4、MOV、WEBM 等，单个不超过 200MB</span>
             </div>
             <ul class="files" id="files"></ul>
           </div>
           <div data-pane="link" hidden>
             <div id="links" class="link-rows"></div>
             <button type="button" class="slot__add" id="addLink">＋ 再加一个链接</button>
-            <p class="slot__hint">B 站、网盘、YouTube、Medal、Streamable 都行。网盘要设成不登录也能看，提取码写在旁边。</p>
+            <p class="slot__hint">B 站、网盘、YouTube、Medal、Streamable 都可以。网盘要设成不登录也能看，提取码写在旁边。</p>
           </div>
-          <label class="check slot__check"><input type="checkbox" id="notObs"><span>这段视频<b>不是 OBS 录屏</b>，也没有剪辑。</span></label>
+          <label class="check slot__check"><input type="checkbox" id="notObs"><span>这段视频<b>不是用 OBS 录的</b>，也没有剪辑。</span></label>
         </div>
         <div id="videoLog"></div>
         <div class="opts" id="videoNext" hidden>
-          <button type="button" class="opt" data-go="3"><span class="opt__n">1.</span>「好了。」</button>
+          <button type="button" class="opt" data-go="3"><span class="opt__n">1.</span>「视频交好了。」</button>
         </div>
       </div>
 
       <!-- 03 确认 -->
       <div class="dlg" data-step="3" hidden>
-        <p class="dl dl--me">「好了。」</p>
-        <p class="dl"><span class="who">收件员</span>还有想说的写这里，不写也行。要我找你，就留个联系方式。</p>
+        <p class="dl dl--me">「视频交好了。」</p>
+        <p class="dl"><span class="who">收件员</span>有要说明的可以写在下面，不写也行。需要我们联系你，就留个联系方式。</p>
         <div class="slot">
           <label class="slot__lab mono" for="note">补充（选填）</label>
           <textarea class="textarea" id="note" maxlength="2000" rows="3" placeholder="比如：视频 01:30 打开了 PLAYERLIST；他一直把我按在地上。"></textarea>
@@ -112,25 +112,24 @@
             <div><label class="slot__lab mono" for="contact">号码 / 地址</label><input class="input" id="contact" maxlength="120" placeholder="只有协助者看得到"></div>
           </div>
         </div>
-        <p class="dl"><span class="who">收件员</span>最后一件事。我会用站长自己的 Discord 账号，把这些按官方表单交给 Gakuran。封不封号，是官方说了算。</p>
-        <label class="check slot__check"><input type="checkbox" id="consent"><span>可以，照这样提交。</span></label>
+        <p class="dl"><span class="who">收件员</span>提交后，站长会用自己的 Discord 账号，按官方表单替你举报。封不封号由官方决定。</p>
+        <label class="check slot__check"><input type="checkbox" id="consent"><span>我同意由站长代为提交。</span></label>
         <p class="err" id="submitErr" role="alert" hidden></p>
         <div class="opts">
-          <button type="submit" class="opt opt--go" id="submit"><span class="opt__n">1.</span>「交。」</button>
+          <button type="submit" class="opt opt--go" id="submit"><span class="opt__n">1.</span>「提交。」</button>
         </div>
       </div>
     </form>
 
     <!-- 回执 -->
     <div class="dlg rc" id="receipt" hidden aria-live="polite">
-      <p class="dl dl--me">「交。」</p>
-      <p class="dl"><span class="sk sk--psy">记录</span><span class="chk">[存档：完成]</span> — 收件台盖了章。</p>
-      <p class="dl"><span class="who">收件员</span>收好了。下面这两样你记下来，查进度、补材料都靠它们。查询码只给你看这一次，我也找不回来。</p>
+      <p class="dl dl--me">「提交。」</p>
+      <p class="dl"><span class="who">收件员</span>收到了。下面是案件编号和查询码，查进度、补材料都要用。查询码只显示这一次，丢了没法找回。</p>
       <div class="rc__card frame">
-        <span class="stamp">已收件<small>RECEIVED</small></span>
+        <span class="stamp">已收件</span>
         <dl class="rc__keys">
-          <div><dt class="mono">CASE · 案件编号</dt><dd class="mono" id="rcId"></dd></div>
-          <div><dt class="mono">KEY · 查询码</dt><dd class="mono" id="rcKey"></dd></div>
+          <div><dt class="mono">案件编号</dt><dd class="mono" id="rcId"></dd></div>
+          <div><dt class="mono">查询码</dt><dd class="mono" id="rcKey"></dd></div>
         </dl>
         <div class="rc__acts">
           <button type="button" class="btn btn--sm" id="rcCopy"><span class="btn__t">复制两项</span><span class="btn__ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="8" width="12" height="12"/><path d="M16 8V4H4v12h4"/></svg></span></button>
@@ -139,7 +138,7 @@
         </div>
         <label class="check"><input type="checkbox" id="rcRemember" checked><span>在这台设备上记住（公用电脑请取消）</span></label>
       </div>
-      <p class="dl dl--n">接下来协助者会核对，一般一到三天。缺东西时查询页会写明要补什么；真正提交到官方以后，进度才会变成“已代投”。</p>
+      <p class="dl dl--n">协助者一般在一到三天内核对。缺东西时，查询页会写明要补什么；真正提交给官方以后，进度才会显示“已代投”。</p>
     </div>
   </section>
 </main>

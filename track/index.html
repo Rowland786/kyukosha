@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
+<meta name="author" content="超工口级魔法少女">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>查询进度 · 旧校舍</title>
 <meta name="description" content="凭案件编号和查询码查看举报走到了哪一步，按协助者的留言补充材料。">
@@ -29,16 +30,16 @@
       </g>
     </svg>
     <div class="wrap tk__head">
-      <span class="kicker" data-reveal><span class="dot"></span><b>查询进度</b><i></i>TRACK</span>
+      <span class="kicker" data-reveal><span class="dot"></span><b>查询进度</b></span>
       <h1 class="tk__title" data-strip><span class="strip">走到哪一步了</span></h1>
-      <p class="lede" data-reveal>输入提交时拿到的案件编号和查询码。查询码相当于钥匙，别发给别人。</p>
+      <p class="lede" data-reveal>输入提交时拿到的案件编号和查询码。查询码不要发给别人，拿到它的人就能看你的材料。</p>
     </div>
   </section>
 
   <div class="wrap tk__body">
     <form class="tk__login" id="login" novalidate>
-      <label class="field"><span class="mono">CASE · 案件编号</span><input class="input mono" name="id" placeholder="GK1030-XXXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
-      <label class="field"><span class="mono">KEY · 查询码</span><input class="input mono" name="key" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+      <label class="field"><span class="mono">案件编号</span><input class="input mono" name="id" placeholder="GK1030-XXXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+      <label class="field"><span class="mono">查询码</span><input class="input mono" name="key" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
       <button class="btn btn--solid" type="submit"><span class="btn__t">查询</span><span class="btn__ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></button>
       <div class="saved" id="saved"></div>
       <p class="err" id="loginErr" role="alert" hidden></p>
@@ -64,23 +65,23 @@
       <div class="notice case__appeal" id="cAppeal" hidden></div>
       <div class="case__grid">
         <section>
-          <h3 class="case__h mono">LOG · 经过记录</h3>
+          <h3 class="case__h mono">进度记录</h3>
           <ol class="tl" id="cEvents"></ol>
         </section>
         <section>
-          <h3 class="case__h mono">FILED · 你交的材料</h3>
+          <h3 class="case__h mono">你交的材料</h3>
           <dl class="rv" id="cSummary"></dl>
         </section>
       </div>
 
       <form class="form-card reply" id="reply" novalidate>
-        <header class="fstep__head"><span class="mono">SUPPLEMENT · 补充</span><h3 class="h-2">补交视频或说明</h3></header>
-        <p class="fhint">协助者让你补的东西，或者你后来想起来的事，都在这里交。交完状态会回到“核对中”。</p>
+        <header class="fstep__head"><h3 class="h-2">补交视频或说明</h3></header>
+        <p class="fhint">协助者要你补的材料，或者你想补充的说明，都在这里交。交完后状态会回到“核对中”。</p>
         <label class="field"><span>说明</span><textarea class="textarea" name="text" maxlength="3000" placeholder="例如：新视频 00:45 打开了 PLAYERLIST，能看到他的用户名。"></textarea></label>
         <div class="drop" id="drop" tabindex="0" role="button" aria-label="选择要上传的文件">
           <input type="file" id="fileInput" multiple accept="video/*,image/*,.mkv,.flv,.wmv" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
-          <b>补传视频</b><span class="mono">单个 200MB 以内 · 不收 OBS 录屏</span>
+          <b>补传视频</b><span class="mono">单个不超过 200MB，不收 OBS 录屏</span>
         </div>
         <ul class="files" id="files"></ul>
         <div class="field"><span>补充链接</span><div class="link-rows" id="links"></div><button type="button" class="btn-line" id="addLink">＋ 再加一个链接</button></div>

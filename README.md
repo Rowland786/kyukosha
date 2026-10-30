@@ -1,6 +1,6 @@
 # 旧校舍 KYŪKŌSHA
 
-学乱 Gakuran 中文玩家的举报协助窗口和服饰图鉴镜像。非官方玩家站，与 Gakuran 开发组、Roblox 无关。
+学乱 Gakuran 中文玩家的举报协助窗口和服饰图鉴镜像，由超工口级魔法少女制作。非官方玩家站，与 Gakuran 开发组、Roblox 无关。
 
 - 网站：https://rowland786.github.io/kyukosha/
 - 收件后台：https://kyukosha-desk.netlify.app （只有接口，没有页面）
@@ -10,7 +10,7 @@
 | 页面 | 路径 | 用途 |
 |---|---|---|
 | 首页 | `/` | 入口 |
-| 举报教程 | `/guide/` | 中文举报流程，附核查记录 |
+| 举报教程 | `/guide/` | 怎么找对方的 Roblox ID、什么样的视频有效、交上来以后的流程 |
 | 提交举报 | `/report/` | 只要两样：对方的 Roblox ID、一段有效视频（不收 OBS 录屏）；对话式三步，拿到案件编号和查询码 |
 | 查询进度 | `/track/` | 凭编号和查询码看进度、补材料 |
 | 服饰图鉴 | `/archive/` | Kaglorn 图鉴的完整镜像和中文查阅界面 |

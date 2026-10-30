@@ -17,7 +17,7 @@ const scene = vision($('#sceneVision'), {
   fit: 'cover', focus: [0.5, 0.45], points: 80, mesh: 0.3, meshFrom: [0.5, 0.3], seed: 5,
   crossAt: [0.5, 0.5], contrast: 1.55, dim: 0.9, glitch: true,
   chain: innerWidth > 960 ? { from: [0.08, 0.06], to: [0.22, 0.95], n: 6, r: 0.07 } : null,
-  boxes: [{ ...SUBJECT, label: 'SUBJECT · 待确认', dashed: true }],
+  boxes: [{ ...SUBJECT, label: '被举报人 · 待核对', dashed: true }],
 });
 
 // ---------- 对话推进 ----------
@@ -69,7 +69,7 @@ async function lookupAll() {
       d.users.forEach((u) => found.set(u.requested.toLowerCase(), u));
     }
   } catch (ex) {
-    line(log, `<span class="sk sk--fys">警觉</span><span class="chk">[连接失败]</span> — ${esc(ex.message)}`);
+    line(log, `<span class="chk chk--fail">查询失败</span>${esc(ex.message)}`);
     btn.classList.remove('is-busy');
     return false;
   }
@@ -82,17 +82,17 @@ async function lookupAll() {
     if (r?.found) {
       hits.push(r);
       input?.removeAttribute('aria-invalid');
-      line(log, `<span class="sk sk--int">辨认</span><span class="chk">[核对：成功]</span> — <b>@${esc(r.name)}</b>，用户 ID <span class="mono">${r.id}</span>，显示名称 ${esc(r.displayName)}。<a class="link-u" href="https://www.roblox.com/users/${r.id}/profile" target="_blank" rel="noopener">打开主页对一下</a>`);
+      line(log, `<span class="chk">找到了</span><b>@${esc(r.name)}</b>，ID <span class="mono">${r.id}</span>，显示名称 ${esc(r.displayName)}。<a class="link-u" href="https://www.roblox.com/users/${r.id}/profile" target="_blank" rel="noopener">打开主页确认</a>`);
     } else {
       allOk = false;
       input?.setAttribute('aria-invalid', 'true');
-      line(log, `<span class="sk sk--int">辨认</span><span class="chk chk--fail">[核对：失败]</span> — Roblox 上没有「${esc(v)}」。看看大小写和下划线，或者直接给数字 ID。`);
+      line(log, `<span class="chk chk--fail">查不到</span>Roblox 上没有「${esc(v)}」。检查一下拼写和下划线，或者改填数字 ID。`);
     }
   });
   $('#idNext').hidden = !allOk;
   if (hits.length) {
     scene.setBoxes([{ ...SUBJECT, label: hits.map((h) => `@${h.name}`).join(' · ').slice(0, 40), tone: 'accent', sub: `ROBLOX ID ${hits.map((h) => h.id).join(' / ')}` }]);
-    $('#sceneCap').textContent = `SUBJECT · @${hits[0].name} · ID ${hits[0].id}`;
+    $('#sceneCap').textContent = `被举报人：@${hits[0].name}（ID ${hits[0].id}）`;
   }
   save();
   return allOk;
@@ -143,7 +143,7 @@ async function pump() {
     try {
       const r = await uploadFile(f.file, { onProgress: (p) => { f.progress = p; renderFiles(); } });
       Object.assign(f, { id: r.id, token: r.token, status: 'done', progress: 1 });
-      line($('#videoLog'), `<span class="sk sk--mot">眼力</span><span class="chk">[核对：成功]</span> — 收到「${esc(f.name)}」，${fmtSize(f.size)}。`);
+      line($('#videoLog'), `<span class="chk">已上传</span>「${esc(f.name)}」，${fmtSize(f.size)}。`);
       scene.glitch();
     } catch (ex) { f.status = 'error'; f.err = ex.message; }
     renderFiles(); videoState(); save();
@@ -153,7 +153,7 @@ async function pump() {
 function addFiles(list) {
   for (const file of list) {
     if (files.length >= 12) { toast('最多 12 个文件'); break; }
-    if (file.size > 200 * 1048576) { toast(`${file.name} 超过 200MB，剪掉无关的开头结尾，或者改用链接`); continue; }
+    if (file.size > 200 * 1048576) { toast(`${file.name} 超过 200MB，请改用链接上传`); continue; }
     if (!/^(video|image)\//.test(file.type) && !/\.(mkv|flv|wmv|mov|mp4|avi|webm|m4v)$/i.test(file.name)) { toast(`${file.name} 不是视频`); continue; }
     files.push({ file, name: file.name, size: file.size, status: 'queued', progress: 0 });
   }
@@ -181,7 +181,6 @@ function videoState() {
 }
 $('#notObs').addEventListener('change', () => {
   videoState();
-  if ($('#notObs').checked && (files.some((f) => f.status === 'done') || goodLinks().length)) line($('#videoLog'), '<span class="sk sk--mot">眼力</span><span class="chk">[确认]</span> — 不是 OBS，没剪辑。好。');
   save();
 });
 
@@ -192,7 +191,7 @@ form.addEventListener('click', async (e) => {
     const n = +go.dataset.go;
     if (n === 2 && !(await lookupAll())) return;
     if (n === 3) {
-      if (!$('#notObs').checked) { toast('先确认这段视频不是 OBS 录屏'); return; }
+      if (!$('#notObs').checked) { toast('请先勾选确认视频不是用 OBS 录的'); return; }
       if (!files.some((f) => f.status === 'done') && !goodLinks().length) { toast('传一个视频，或者贴一个链接'); return; }
     }
     show(n);
@@ -210,8 +209,8 @@ form.addEventListener('submit', async (e) => {
   if (!(await lookupAll())) return fail('对方的 Roblox 账号还没核对通过。');
   if (files.some((f) => f.status === 'uploading' || f.status === 'queued')) return fail('视频还在上传，等它传完。');
   if (!files.some((f) => f.status === 'done') && !goodLinks().length) return fail('还没有视频。');
-  if (!$('#notObs').checked) return fail('请确认视频不是 OBS 录屏。');
-  if (!$('#consent').checked) return fail('请勾选“可以，照这样提交”。');
+  if (!$('#notObs').checked) return fail('请勾选确认视频不是用 OBS 录的。');
+  if (!$('#consent').checked) return fail('请勾选“我同意由站长代为提交”。');
   const btn = $('#submit');
   btn.classList.add('is-busy');
   try {
@@ -282,7 +281,7 @@ function restore() {
   renderFiles();
   $('#notObs').checked = !!d.notObs;
   $('#note').value = d.note || ''; $('#contactType').value = d.contactType || ''; $('#contact').value = d.contact || '';
-  if (d.reached) { show(Math.min(d.reached, 3), false); if (d.reached >= 1 && $('#target').value) lookupAll(); videoState(); toast('接着上次没交完的继续'); }
+  if (d.reached) { show(Math.min(d.reached, 3), false); if (d.reached >= 1 && $('#target').value) lookupAll(); videoState(); toast('已恢复上次没提交完的内容'); }
 }
 addEventListener('beforeunload', (e) => { if (files.some((f) => f.status === 'uploading')) { e.preventDefault(); e.returnValue = ''; } });
 form.addEventListener('change', save);

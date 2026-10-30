@@ -42,12 +42,12 @@ function render(c) {
   $('#cStatus').textContent = st.t;
   let desc = st.d;
   if (c.type !== 'report' && c.status === 'ready') desc = '材料已经整理好，请照下面的步骤本人提交。';
-  if (c.status === 'submitted' && c.submission) desc = `${c.submission.at} 通过 ${c.submission.method} 提交。官方处理通常要几天；7 天内没人处理，Blox.report 会自动驳回，到时我们会重新提交。`;
+  if (c.status === 'submitted' && c.submission) desc = `${c.submission.at} 通过 ${c.submission.method} 提交。官方处理通常要几天；7 天内没人处理，Blox.report 会自动驳回，到时协助者会重新提交。`;
   if (c.status === 'result' && c.result) desc = { approved: '官方已经批准这份举报。封禁有时会晚一点生效。', dismissed: '这份举报被驳回或超时自动关闭了，见下方说明。', other: '官方有回复，见下方说明。' }[c.result.outcome] + (c.result.text ? ' ' + c.result.text : '');
   if (c.status === 'closed' && c.closed?.reason) desc = c.closed.reason;
   $('#cDesc').textContent = desc;
   const stamp = $('#cStamp');
-  stamp.innerHTML = `${st.t}<small>${st.en}</small>`;
+  stamp.textContent = st.t;
   stamp.classList.toggle('is-ok', c.status === 'result' && c.result?.outcome === 'approved');
 
   const req = $('#cRequest');

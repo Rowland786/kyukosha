@@ -355,7 +355,6 @@ export function vision(canvas, opts = {}) {
       ctx.setLineDash([]);
       const ix = (mouse.x - map.ox) / map.s, iy = (mouse.y - map.oy) / map.s;
       label(`${fmt(ix)},${fmt(iy)}`, mouse.x + R + 8, mouse.y - 10, 'left', '#f2f0ea', 10);
-      label('SCAN', mouse.x + R + 8, mouse.y + 6, 'left', '#f2c230', 9);
     }
   }
 

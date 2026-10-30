@@ -14,7 +14,7 @@ export async function call(path, { method = 'GET', body, token, raw = false, sig
     r = await fetch(API + path, { method, headers, body: body !== undefined ? JSON.stringify(body) : undefined, signal });
   } catch (e) {
     if (e.name === 'AbortError') throw e;
-    throw new ApiError('连不上收件服务器。检查一下网络，稍后再试；材料已经保存在这台设备上，不会丢。', 0);
+    throw new ApiError('连不上收件服务器，请检查网络后再试。已填的内容保存在这台设备上，不会丢。', 0);
   }
   if (raw) { if (!r.ok) throw new ApiError(`下载失败（${r.status}）`, r.status); return r; }
   let data = null;
