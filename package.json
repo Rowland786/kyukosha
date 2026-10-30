@@ -24,6 +24,7 @@
     "@fontsource/ibm-plex-mono": "^5.1.1",
     "@fontsource/noto-serif-sc": "^5.1.1",
     "@netlify/blobs": "^8.1.0",
+    "delaunator": "^5.0.1",
     "lenis": "^1.1.18"
   },
   "private": true

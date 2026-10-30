@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>关于本站 · 旧校舍</title>
-<meta name="description" content="旧校舍是谁在办、举报材料由谁经手、哪些步骤必须在 Discord 里完成、材料怎么保存，以及服饰图鉴镜像的完整性核对。">
-<meta name="theme-color" content="#d8d6d0">
+<meta name="description" content="旧校舍是谁在办、举报材料由谁经手、材料怎么保存，以及服饰图鉴镜像的完整性核对。">
+<meta name="theme-color" content="#0a0a0b">
 <link rel="icon" href="/kyukosha/favicon.svg" type="image/svg+xml">
 <script type="module" src="/src/js/about.js"></script>
 </head>
@@ -13,104 +13,80 @@
 <include src="header.html" page="about"></include>
 
 <main id="main">
-  <header class="g-head wrap">
-    <span class="label" data-reveal><b>关于本站</b><span class="bar"></span>About</span>
-    <h1 class="h-display g-title" data-split>谁在办这个站<br>材料经过谁的手</h1>
-    <p class="lede" data-reveal>旧校舍由一位学乱中文玩家开办，用来帮国内玩家把举报材料整理好、按官方流程交上去，同时镜像一份 Kaglorn 整理的服饰图鉴，方便国内打开。本站与 Gakuran 开发组、Support 服务器的员工以及 Roblox 都没有关系。</p>
-  </header>
+  <section class="ab-hero">
+    <canvas class="vision" id="abVision" aria-hidden="true"></canvas>
+    <div class="wrap ab-hero__inner">
+      <span class="kicker" data-reveal><span class="dot"></span><b>关于本站</b><i></i>ABOUT</span>
+      <h1 class="ab-title" data-strip><span class="strip">一个玩家办的</span><br><span class="strip">举报窗口</span></h1>
+      <p class="lede" data-reveal>旧校舍由一位学乱中文玩家开办，帮国内玩家把举报交到官方手里，顺便镜像一份 Kaglorn 整理的服饰图鉴。和 Gakuran 开发组、官方员工、Roblox 都没有关系。</p>
+    </div>
+  </section>
 
   <section class="section" id="roles">
     <div class="wrap">
-      <div class="section-head">
+      <div class="sec-head">
+        <span class="sec-head__no num" aria-hidden="true">01</span>
         <div>
-          <span class="label"><b>分工</b><span class="bar"></span>Who does what</span>
-          <h2 class="h-1" style="margin-top:16px">一份举报<br>分四段完成</h2>
+          <span class="kicker"><span class="dot"></span><b>分工</b><i></i>WHO DOES WHAT</span>
+          <h2 class="h-1">谁做哪一步</h2>
         </div>
-        <p class="lede">网站、协助者、官方的 Discord 界面和你自己，各管一段。下面写清每一段由谁来做，哪些事网站做不了，哪些事只能在 Discord 里点按钮完成。</p>
       </div>
       <div class="roles">
-        <article class="role frame">
-          <span class="num role__n">A</span>
-          <h3 class="h-3">网站</h3>
-          <p>收件、存档、记录进度。提交页逐项收集对方用户名、时间地点、经过、聊天原文和证据，并当场去 Roblox 核对用户名是否存在。视频可以直接传上来。提交后生成案件编号和查询码，之后每一次状态变化、每一条留言都记在案件里，你在查询页能看到。</p>
-          <p class="role__no">网站不会自动替你举报，也不会和 Discord 自动对接。</p>
-        </article>
-        <article class="role frame">
-          <span class="num role__n">B</span>
-          <h3 class="h-3">协助者</h3>
-          <p>站长和帮忙核对的人。在审核台里看录像，核对用户名、PLAYERLIST、时长和类别，缺什么就在你的案件里留言请你补。材料齐了，把中文经过和聊天翻成英文，按 Blox.report 表单三栏的字数写好，原文和译文并排保存。</p>
-          <p class="role__no">不是全天在线。新案件一般一到三天内处理，忙的时候会慢一些。</p>
-        </article>
-        <article class="role frame">
-          <span class="num role__n">C</span>
-          <h3 class="h-3">Discord 官方界面</h3>
-          <p>真正的提交只能在这里完成：站长用自己的 Discord 账号，在 Gakuran Support 的 #reports 点 Report Player，填三栏、点提交；或者在 Blox.report 网站上传视频后提交。官方的批准通知也是 Blox.report 私信到站长账号，再由协助者抄进你的案件。</p>
-          <p class="role__no">我们不用脚本、机器人或任何自动化去操作 Discord 账号，每一次提交都是在正常界面里手动完成的。</p>
-        </article>
-        <article class="role frame">
-          <span class="num role__n">D</span>
-          <h3 class="h-3">你自己</h3>
-          <p>录像、交材料、按留言补材料。申诉（游戏封禁和 Discord 封禁）必须由被封的人自己提交，我们只帮你把英文写好、把步骤列清楚。</p>
-          <p class="role__no">你不需要给任何人密码、Cookie 或验证码。</p>
-        </article>
+        <article class="role"><span class="role__k mono">A · YOU</span><h3 class="h-3">你</h3><p>交对方的 Roblox ID 和一段视频。需要时按查询页的留言补材料。</p><p class="role__no">不用给任何人密码、Cookie 或验证码。</p></article>
+        <article class="role"><span class="role__k mono">B · SITE</span><h3 class="h-3">网站</h3><p>收件、去 Roblox 核对 ID、保存视频、记录每一步进度。</p><p class="role__no">网站不会自动替你举报。</p></article>
+        <article class="role"><span class="role__k mono">C · DESK</span><h3 class="h-3">协助者</h3><p>看视频、确认对方身份、写英文说明。缺东西就留言请你补。</p><p class="role__no">不是全天在线，新案件一般一到三天处理。</p></article>
+        <article class="role role--y"><span class="role__k mono">D · DISCORD</span><h3 class="h-3">官方表单</h3><p>站长用自己的 Discord 账号，在 Gakuran Support 的 #reports 里点 Report Player 正常提交。官方的回复也发到这个账号，再由协助者抄进你的案件。</p><p class="role__no">每次都在官方界面手动提交，不用脚本或机器人。</p></article>
       </div>
-      <div class="status-legend">
-        <h3 class="h-3">进度里每个状态的意思</h3>
-        <dl class="rv">
-          <div><dt>已收件</dt><dd>材料已经存进系统，还没有人看。</dd></div>
-          <div><dt>核对中</dt><dd>协助者正在看你的材料。</dd></div>
-          <div><dt>待补充</dt><dd>缺东西，查询页会写明要补什么。补交以后自动回到“核对中”。</dd></div>
-          <div><dt>待提交</dt><dd>材料核对完、英文写好了，等站长在 Discord 里提交。申诉案件到这一步，是请你本人提交。</dd></div>
-          <div><dt>已代投</dt><dd>站长已经在官方表单里点了提交。只有真正提交以后才会出现，并写明提交时间和方式。</dd></div>
-          <div><dt>官方已回复</dt><dd>收到了 Blox.report 的私信或员工的答复，按原意写进结果。没有收到回复，就一直停在“已代投”。</dd></div>
-          <div><dt>已结束</dt><dd>不能代投（比如不属于可举报行为、证据无法补救）或你撤回了，原因会写明。</dd></div>
-        </dl>
-      </div>
+      <dl class="rv status-legend">
+        <div><dt>已收件</dt><dd>材料到了，还没人看。</dd></div>
+        <div><dt>核对中</dt><dd>协助者正在看。</dd></div>
+        <div><dt>待补充</dt><dd>缺东西，查询页写着要补什么。补完回到核对中。</dd></div>
+        <div><dt>待代投</dt><dd>核对完了，等站长去官方表单提交。</dd></div>
+        <div><dt>已代投</dt><dd>真正在官方表单里点了提交才会出现，写明时间和方式。</dd></div>
+        <div><dt>官方已回复</dt><dd>收到官方回复才会出现。没收到就一直停在“已代投”。</dd></div>
+        <div><dt>已结束</dt><dd>没法代投或者你撤回了，会写明原因。</dd></div>
+      </dl>
     </div>
   </section>
 
-  <section class="section section--hi" id="privacy">
-    <div class="wrap about-cols">
+  <section class="section paper" id="privacy">
+    <div class="wrap ab-cols">
       <div>
-        <span class="label"><b>隐私与访问控制</b><span class="bar"></span>Privacy</span>
-        <h2 class="h-1" style="margin-top:16px">材料只给<br>需要看的人看</h2>
+        <span class="kicker"><span class="dot"></span><b>隐私</b><i></i>PRIVACY</span>
+        <h2 class="h-1" style="margin-top:14px" data-strip><span class="strip">材料只给</span><br><span class="strip">该看的人看</span></h2>
       </div>
-      <div class="prose about-prose">
-        <p>你提交的举报材料、上传的视频、留下的联系方式，都存在收件后台（Netlify 的私有存储），不在本站的公开页面上，也不会写进 GitHub 仓库或 Issues。能打开这些材料的只有两种人：持有案件编号和查询码的你，以及登录审核台的协助者。</p>
-        <p>你在查询页能看到自己交的内容、进度和协助者给你的留言，协助者的内部备注不会出现在那里；协助者在审核台能看到全部材料，包括你的联系方式。查询码只在提交成功那一刻显示一次，服务器只保存它的校验值，忘了就找不回来。</p>
-        <p>交到官方那边的，只有表单要求的三栏：对方的 Roblox 用户名、英文事由和证据链接，以及必要时上传给 Blox.report 的视频。你的称呼和联系方式不会交给官方，除非官方要求联系当事人，那时会先问你。</p>
-        <p>案件结束后，材料和视频保留 180 天，之后由后台定时删除。想提前删除，在查询页留言说明即可。</p>
-        <p>我们不会向你要 Roblox 或 Discord 的密码、Cookie、两步验证码，也不需要你登录任何东西。以旧校舍名义索要这些的，都不是我们。站长的 Discord 登录凭据同样不会出现在网站或源码里。</p>
+      <div class="ab-prose">
+        <p>你交的视频、ID 和联系方式存在收件后台的私有存储里，不在公开页面上，也不会进 GitHub 仓库或 Issues。能打开的只有拿着查询码的你，和登录审核台的协助者。</p>
+        <p>查询码只在提交成功时显示一次，服务器只存它的校验值，忘了就找不回来。</p>
+        <p>交给官方的只有对方的用户名、英文事由和视频。你的联系方式不会给官方。</p>
+        <p>案件结束 180 天后，材料和视频自动删除。想提前删，在查询页留言。</p>
+        <p>本站不向你要 Roblox 或 Discord 的密码、Cookie、验证码。用旧校舍名义要这些的，都不是我们。</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--patina on-dark" id="mirror">
+  <section class="section" id="mirror">
     <div class="wrap">
-      <div class="section-head">
+      <div class="sec-head">
+        <span class="sec-head__no num" aria-hidden="true">02</span>
         <div>
-          <span class="label"><b>图鉴镜像</b><span class="bar"></span>Mirror audit</span>
-          <h2 class="h-1" style="margin-top:16px">镜像了什么<br>没镜像什么</h2>
-        </div>
-        <div>
-          <p class="lede">服饰图鉴的全部数据、图片和中文整理来自 <a class="link-u" href="https://kaglorn.github.io/gakuran-clothes/" target="_blank" rel="noopener">Kaglorn 的学乱服饰图鉴</a>，原始素材出自官方 Trello 看板。本站按上游仓库的文件树逐个下载，每个文件都用 git 校验值和上游比对，下面的数字由镜像清单实时算出。</p>
-          <p class="credit">原仓库没有声明许可证。本站镜像只为方便国内玩家查阅，不改动原数据、原图片和作者署名。Kaglorn 如有异议，请在本站源码仓库留言，我们会立即处理。</p>
+          <span class="kicker"><span class="dot"></span><b>图鉴镜像</b><i></i>MIRROR AUDIT</span>
+          <h2 class="h-1">镜像了什么，没镜像什么</h2>
         </div>
       </div>
+      <p class="lede ab-mirror-lede">服饰图鉴的数据、图片和中文整理来自 <a class="link-u" href="https://kaglorn.github.io/gakuran-clothes/" target="_blank" rel="noopener">Kaglorn 的学乱服饰图鉴</a>，素材出自官方 Trello。本站按上游仓库的文件树逐个下载，每个文件都用 git 校验值和上游比对。下面的数字由镜像清单实时算出。原仓库没有声明许可证，镜像只为方便国内查阅，不改动原数据和署名；作者如有异议，我们会立即处理。</p>
       <div class="audit" id="audit"><p class="mute">正在读取镜像清单…</p></div>
     </div>
   </section>
 
-  <section class="section" id="credits">
-    <div class="wrap about-cols">
-      <div>
-        <span class="label"><b>来源与署名</b><span class="bar"></span>Credits</span>
-      </div>
-      <div class="prose about-prose">
-        <p><b>服饰图鉴</b>：数据整理、图片切分、分类、种族标注和中文说明由 Kaglorn 完成，见 <a class="link-u" href="https://github.com/Kaglorn/gakuran-clothes" target="_blank" rel="noopener">Kaglorn/gakuran-clothes</a>。图片中的服饰、发型和游戏画面属于 Gakuran 开发组，原始素材发布在 <a class="link-u" href="https://trello.com/b/v3WatB1P/" target="_blank" rel="noopener">(学乱) Gakuran Trello</a>。</p>
-        <p><b>举报教程</b>里的规则摘自官方 Trello、Gakuran 主服务器和 Support 服务器的公开内容，每条都在教程末尾的核查记录里注明出处和日期。教程中的 PLAYERLIST 示例图来自官方 Trello。</p>
-        <p><b>字体</b>：Noto Serif SC、Archivo、IBM Plex Mono，均以 SIL Open Font License 授权，随网站一起托管，不依赖国外字体服务。</p>
-        <p><b>源码</b>：<a class="link-u" href="https://github.com/Rowland786/kyukosha" target="_blank" rel="noopener">github.com/Rowland786/kyukosha</a>。网站本身的问题可以在那里反馈，但请不要在仓库或 Issues 里贴任何举报材料、用户名或联系方式。</p>
+  <section class="section paper" id="credits">
+    <div class="wrap ab-cols">
+      <div><span class="kicker"><span class="dot"></span><b>来源与署名</b><i></i>CREDITS</span></div>
+      <div class="ab-prose">
+        <p><b>服饰图鉴</b>：数据整理、图片切分、分类、种族标注和中文说明由 Kaglorn 完成，见 <a class="link-u" href="https://github.com/Kaglorn/gakuran-clothes" target="_blank" rel="noopener">Kaglorn/gakuran-clothes</a>。图里的服饰、发型和游戏画面属于 Gakuran 开发组，原始素材发布在 <a class="link-u" href="https://trello.com/b/v3WatB1P/" target="_blank" rel="noopener">(学乱) Gakuran Trello</a>。全站的识别画面都取自这些实机截图。</p>
+        <p><b>举报教程</b>：可举报行为和 PLAYERLIST 示例图来自官方 Trello 的举报说明。</p>
+        <p><b>字体</b>：Noto Serif SC、Archivo、IBM Plex Mono，均以 SIL Open Font License 授权，随网站托管。</p>
+        <p><b>源码</b>：<a class="link-u" href="https://github.com/Rowland786/kyukosha" target="_blank" rel="noopener">github.com/Rowland786/kyukosha</a>。请不要在仓库或 Issues 里贴任何举报材料。</p>
       </div>
     </div>
   </section>

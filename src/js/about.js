@@ -1,6 +1,16 @@
 import { BASE, $, esc } from './common.js';
-import '../styles/guide.css';
 import '../styles/about.css';
+import { vision } from './vision.js';
+
+// 头部画面：图鉴 No.0627 实机截图
+const abv = $('#abVision');
+if (abv) vision(abv, {
+  src: `${BASE}mirror/images/${encodeURI('女性/制服/032_未命名.png')}`,
+  fit: 'contain', scale: innerWidth > 960 ? 0.8 : 1.1, align: innerWidth > 960 ? [0.8, 1] : [0.5, 0.15],
+  fade: 0.2, points: 70, mesh: 0.3, meshFrom: [0.5, 0.2], seed: 21, contrast: 1.45, dim: 0.7,
+  crossAt: [0.72, 0.5], chain: innerWidth > 960 ? { from: [0.45, 0.1], to: [0.6, 0.95], n: 6, r: 0.07 } : null,
+  boxes: [{ x: 0.08, y: 0.0, w: 0.84, h: 0.12, label: '角色名 · 不是 ID', tone: 'red', dashed: true, labelBelow: true }],
+});
 
 const CAT_ORDER = ['制服', '发型', '面部', '头部饰品', '颈部', '手臂', '腰部', '背部', '滑板', '终结技'];
 const FIELD_CN = { name: '名称', asset_id: '资产 ID', rarity: '稀有度（原文）', rarity_base: '稀有度（归一）', ethnicity: '种族', sheet: '合集图' };

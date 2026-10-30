@@ -12,14 +12,12 @@ const blobUrls = [];
 const TYPE_CN = { report: '举报', game_appeal: '游戏申诉', discord_appeal: 'Discord 申诉' };
 const OUTCOME_CN = { approved: '已批准', dismissed: '驳回 / 超时', other: '其他回复' };
 const CHECKS = [
-  ['user', '用户名能查到，和录像里 PLAYERLIST 显示的一致'],
-  ['clip', '录像能看清违规过程，没有剪掉关键部分'],
-  ['playerlist', '录像里打开了 PLAYERLIST，角色名能对上用户名'],
-  ['duration', '持续类行为录满两分钟以上（不适用可勾）'],
-  ['category', '属于官方列出的可举报行为'],
-  ['link', '证据链接无需登录即可播放，或已转存到官方支持的平台'],
-  ['chat', '中文聊天已保留原文并写好英文对照（没有可勾）'],
-  ['dup', '同一对象没有重复举报，未超过 7 天自动驳回窗口'],
+  ['user', 'Roblox 查得到这个账号'],
+  ['match', '视频里能认出就是这个人（PLAYERLIST 或其他方式）'],
+  ['video', '视频完整、没剪辑、不是 OBS 录屏'],
+  ['rule', '属于官方列出的可举报行为（持续类录够两分钟）'],
+  ['link', '证据能直接播放，或已转存到官方接受的平台'],
+  ['dup', '同一对象没有重复举报'],
 ];
 
 const api = (path, opt = {}) => call(path, { ...opt, token }).catch((e) => {
@@ -129,14 +127,15 @@ function renderDetail() {
     </section>
   </div>
 
-  <section class="dd-card"><h3>经过（原文）<button class="link-u dd-copy" data-copy="${esc(i.narrative)}">复制</button></h3>
+  ${i.narrative || i.date || i.location || c.extra ? `<section class="dd-card"><h3>经过（原文）<button class="link-u dd-copy" data-copy="${esc(i.narrative || c.extra)}">复制</button></h3>
     <dl class="rv">${kv('时间', esc([i.date, i.time, i.tz].filter(Boolean).join(' ')))}${kv('服务器 / 地点', esc([i.server, i.location].filter(Boolean).join(' · ')))}
-      ${isReport ? kv('类别', `${esc(CATEGORY_CN[i.category]?.t)} <span class="mono">${esc(i.categoryEn)}</span>`) : ''}${kv('持续', esc(i.duration))}</dl>
-    <p class="pre dd-narr">${esc(i.narrative)}</p>
-    ${c.extra ? `<p class="pre mute">补充：${esc(c.extra)}</p>` : ''}
-  </section>
+      ${isReport && i.category !== 'other' ? kv('类别', `${esc(CATEGORY_CN[i.category]?.t)} <span class="mono">${esc(i.categoryEn)}</span>`) : ''}${kv('持续', esc(i.duration))}</dl>
+    ${i.narrative ? `<p class="pre dd-narr">${esc(i.narrative)}</p>` : ''}
+    ${c.extra ? `<p class="pre dd-narr">${esc(c.extra)}</p>` : ''}
+  </section>` : ''}
 
   <section class="dd-card"><h3>证据</h3>
+    ${ev.notObs ? '<p class="mono ok-line">玩家确认：不是 OBS 录屏，未剪辑</p>' : ''}
     <dl class="rv">${isReport ? kv('PLAYERLIST', esc({ yes: '录像里打开了', no: '没有打开', unsure: '不确定' }[ev.playerlist] || '') + (ev.playerlistAt ? ' · ' + esc(ev.playerlistAt) : '')) : ''}
       ${kv('违规时段', esc([ev.clipStart, ev.clipEnd].filter(Boolean).join(' – ')))}${kv('说明', esc(ev.note))}</dl>
     <ul class="ev-links">${ev.links.map((l) => `<li><a class="link-u" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.url)}</a>${l.note ? ` <span class="mute">· ${esc(l.note)}</span>` : ''}</li>`).join('')}</ul>

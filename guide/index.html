@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>举报教程 · 旧校舍</title>
-<meta name="description" content="学乱 Gakuran 举报流程中文教程：去哪里报、什么能报、录像怎么录才认得出对方、视频放哪里、Blox.report 表单三栏怎么填、提交后怎么看结果，以及游戏封禁和 Discord 封禁的申诉。">
-<meta name="theme-color" content="#d8d6d0">
+<meta name="description" content="学乱 Gakuran 举报只要两样：对方的 Roblox ID，和一段有效的视频（不收 OBS 录屏）。怎么找 ID、什么样的视频有效、交上来之后会发生什么。">
+<meta name="theme-color" content="#0a0a0b">
 <link rel="icon" href="/kyukosha/favicon.svg" type="image/svg+xml">
 <script type="module" src="/src/js/guide.js"></script>
 </head>
@@ -14,167 +14,115 @@
 <div class="read-bar" id="readBar" aria-hidden="true"></div>
 
 <main id="main">
-  <header class="g-head wrap">
-    <span class="label" data-reveal><b>举报教程</b><span class="bar"></span>Reporting guide</span>
-    <h1 class="h-display g-title" data-split>在学乱里被欺负了<br>怎么让官方真正看到</h1>
-    <div class="g-meta" data-reveal>
-      <div class="dateblock"><span class="md"><span>10/</span><span>2026</span></span><span class="d">30</span></div>
-      <p>最后核查：北京时间 2026 年 10 月 30 日凌晨。<br>依据官方 Trello、Gakuran 主服务器和 Support 服务器的原文。规则会变，以官方当前页面为准。</p>
+  <header class="g-hero">
+    <canvas class="vision" id="guideVision" aria-hidden="true"></canvas>
+    <span class="corner corner--tl">官方示例图 · 游戏菜单<br>图源 (学乱) Gakuran Trello</span>
+    <div class="wrap g-hero__inner">
+      <span class="kicker" data-reveal><span class="dot"></span><b>举报教程</b><i></i>GUIDE · 01</span>
+      <h1 class="g-title" data-strip><span class="strip">两样东西</span><br><span class="strip">三分钟看完</span></h1>
     </div>
   </header>
 
-  <div class="wrap g-layout">
-    <nav class="toc" aria-label="目录">
-      <span class="label"><b>目录</b><span class="bar"></span>Contents</span>
-      <ol id="toc">
-        <li><a href="#where">官方在哪里收举报</a></li>
-        <li><a href="#what">哪些事情能报</a></li>
-        <li><a href="#record">录像要拍到什么</a></li>
-        <li><a href="#upload">视频放到哪里</a></li>
-        <li><a href="#form">表单三栏怎么填</a></li>
-        <li><a href="#after">提交以后</a></li>
-        <li><a href="#proxy">上不了 Discord 怎么办</a></li>
-        <li><a href="#appeal">被封了怎么申诉</a></li>
-        <li><a href="#mistakes">最常见的几种白忙</a></li>
-        <li><a href="#sources">核查记录</a></li>
-      </ol>
-    </nav>
-
-    <article class="prose" id="article">
-      <p class="g-lede">学乱的举报全靠玩家自己录像、自己提交，官方员工只看你交上去的东西。很多中文玩家的举报石沉大海，并不是官方不管，而是材料在某一步不合格：用户名填错、录像里认不出是谁、视频链接打不开，或者事情本身不在受理范围里。下面按实际操作的顺序，把每一步要做什么、为什么要这样做讲清楚。</p>
-
-      <section id="where">
-        <h2><span class="g-no mono">01</span>官方在哪里收举报</h2>
-        <p>Gakuran 有两个主要的 Discord 服务器。一个是主服务器 <b>(学乱) Gakuran</b>，邀请链接 discord.gg/gakuran，发公告、兑换码和更新预告，玩家日常聊天也在这里。另一个是 <b>(学乱) Gakuran Support</b>，邀请链接 <a class="link-u" href="https://discord.gg/nEd7NXkh2p" target="_blank" rel="noopener">discord.gg/nEd7NXkh2p</a>，专门处理举报、申诉和工单。主服务器 #support 频道里，管理员在 2026 年 9 月写明：要申请身份组、举报玩家、申诉游戏或服务器封禁，都去 Support 服务器办，由那边的 Judges（审判员）处理。</p>
-        <p>进了 Support 服务器，左侧分成几组频道。<b>[Reports]</b> 下面的 <b>#reports</b> 是举报玩家的唯一入口；<b>[Appeals]</b> 下面有 <b>#game-appeals</b>（游戏封禁申诉）和 <b>#discord-appeals</b>（Discord 封禁申诉）；<b>[General Tickets]</b> 下面的 <b>#support</b> 用来申请身份组、带视频证据申请物品恢复和一般咨询。举报不要发到主服务器的聊天频道里，也不要私信员工，那样不会进入处理队列。</p>
-        <p>#reports 频道里只有一条消息，是一个叫 <b>Blox.report</b> 的机器人发的面板，标题 Player Report，下面两个按钮：红色的 <b>Report Player</b> 和灰色的 <b>Need help?</b>。你没法在这个频道打字，所有举报都通过这个按钮弹出的表单提交。Blox.report 是第三方的 Roblox 举报管理工具，Gakuran 用它收举报、让员工认领和处理，处理结果也由它通知你。</p>
-        <p class="g-aside">网上有些攻略站列出的 Support 邀请链接和这里不同。本页以官方 Trello「Game &amp; Discord Links」卡片和主服务器 #links 频道为准，两处都是 discord.gg/nEd7NXkh2p。</p>
-      </section>
-
-      <section id="what">
-        <h2><span class="g-no mono">02</span>哪些事情能报</h2>
-        <p>官方 Trello 的「How to Report」卡片列了九种可以举报的行为。原文是英文，这里逐条解释：</p>
-        <dl class="g-rules">
-          <div><dt>Explicit Drawings</dt><dd>露骨涂画。在黑板之类能画画的地方画色情或下流的内容。</dd></div>
-          <div><dt>Permanent Trapping Players</dt><dd>永久困住其他玩家，让人出不来。</dd></div>
-          <div><dt>Prolonged Carrying of Other Players</dt><dd>长时间扛着别人不放。</dd></div>
-          <div><dt>Infinite Holding</dt><dd>无限压制。把人一直按着、反复击倒、不让起身。</dd></div>
-          <div><dt>Throwing individuals into the void</dt><dd>把人扔进虚空，也就是扔出地图。</dd></div>
-          <div><dt>Bug Abuse</dt><dd>故意利用游戏漏洞。</dd></div>
-          <div><dt>Exploiting</dt><dd>使用外挂、脚本。</dd></div>
-          <div><dt>Extreme Harassment</dt><dd>严重骚扰。普通吵架不算，针对性的、持续的辱骂和骚扰才算。</dd></div>
-          <div><dt>Exploiter Affiliation</dt><dd>和开挂的人勾结、配合。</dd></div>
-        </dl>
-        <p>同一张卡片还写了一条例外：<b>W+S</b>（按着前后键在倒地的人身上来回晃）现在已经不封了，除非明显是带性意味的动作，而不只是嘲讽。10 月 28 日有人问“在倒地的人身上做俯卧撑表情”算不算，两位 Helper 给出了相反的回答，一位说算性暗示可以报，另一位说不封。这类擦边行为能不能报，要看录像里的意图是否明显，我们没法替官方保证。</p>
-        <p>持续类行为有一个门槛：<b>两分钟</b>。Trello 上没写这个数字，但从 2026 年 9 月到 10 月初，主服务器 #questions 频道里的 Trial Staff（运营组成员）反复给出同一个口径：压制、死亡蹲点、拖着不让人起身，要持续两分钟以上才处理，而且<b>录像本身也要有两分钟以上</b>。有员工原话是 6 秒的片段不会处理。所以被压制的时候别急着退出游戏，先把录像录够。</p>
-        <p>几个人一起压制你的，要分开举报。主服务器里有玩家这样回答过，我们没有看到员工专门确认；不过 Blox.report 的表单一次只能填一个用户名，实际上也只能一个一个报。</p>
-        <p>10 月 29 日有人问，在语音里反复拿别人的种族和国家开玩笑、持续欺负人能不能封，两位 Helper 都回答可以封，其中一位直接说这是种族歧视。发生在聊天或语音里的骚扰，还可以同时用 Roblox 菜单里自带的举报（Report）功能。那是 Roblox 平台自己的处理渠道，和 Gakuran 的 Judges 是两套系统，两边都可以报。</p>
-      </section>
-
-      <section id="record">
-        <h2><span class="g-no mono">03</span>录像要拍到什么</h2>
-        <p>官方要求的录像有两件事必须拍到：违规的过程，以及对方是谁。第一件好理解，第二件是中文玩家最常栽的地方。</p>
-        <p>学乱里每个人头顶显示的名字，是游戏里的角色名，比如官方示例图里的 Cazimor Räsänen。这个名字可以随便起，不是 Roblox 账号。员工要封的是 Roblox 账号，所以你得在录像里证明“头顶这个角色”对应“哪个 Roblox 用户名”。官方给的办法是：录像过程中按左上角打开 <b>MENU</b>，点 <b>PLAYERLIST</b>，让列表里的角色名和用户名出现在画面上，并且能和你刚才拍到的那个人对上。</p>
-        <figure class="g-fig">
-          <img src="/kyukosha/guide/playerlist.webp" alt="学乱游戏内菜单，左侧依次是 STATS、SERVERS、PLAYERLIST、EMOTES、SETTINGS、CODES，PLAYERLIST 高亮；画面中间的角色头顶显示角色名 Cazimor Räsänen" loading="lazy" width="1200" height="418">
-          <figcaption>官方 Trello「How to Report」卡片里的示例图：左侧菜单的 PLAYERLIST，以及头顶显示的角色名。图源：(学乱) Gakuran Trello。</figcaption>
-        </figure>
-        <p>Roblox 账号本身也有两个名字，别弄混。<b>用户名</b>是注册时定的，全站唯一，个人主页上写在 @ 后面；<b>显示名称</b>可以重名、可以改，主页上用大字显示在用户名上面。举报表单要的是用户名。Blox.report 会拿你填的用户名去 Roblox 查，查不到就回复 The provided username does not exist（有玩家在 9 月贴出过这句回复），这次举报等于没交。</p>
-        <p>录像从违规刚开始就录，别剪辑、别加速，也别只截最精彩的几秒。被压制、被扛走的，从被抓住一直录到脱身或录满两分钟以上；如果中途按了 PLAYERLIST，记下是第几分几秒，提交时写上，员工找起来快很多。对方换了衣服或者走开又回来，就继续录，同一个人前后的样子都在画面里，比两段互不相干的视频好认。</p>
-        <p>聊天证据要保留上下文。只截对方骂人的那一句，员工看不出是谁先挑事、前后发生了什么；把聊天框里前后几条都录进去，或者在提交材料时一条条照原文贴出来。中文聊天不用你翻译，原文是最重要的证据，翻译由协助者来写，并且始终和原文并排放着，方便员工核对。</p>
-        <p>录屏工具用什么都行：电脑上可以用系统自带的 Xbox Game Bar（Win + G），或者 OBS；手机用系统录屏。录完先自己看一遍，确认对方的名字和动作看得清。手机录的视频如果太大，可以剪掉开头和结尾无关的部分，但违规过程中间不要剪。</p>
-      </section>
-
-      <section id="upload">
-        <h2><span class="g-no mono">04</span>视频放到哪里</h2>
-        <p>Blox.report 的表单不能直接贴文件，Evidence 一栏要的是视频链接。点 Report Player 之后，机器人会先问你有没有上传好证据，并列出 Gakuran Support 接受的平台：<b>YouTube、Medal、Streamable、Vimeo、Imgur、Xbox、Gyazo、Discord、Clipp.gg</b>。这张单子里没有 B 站，也没有国内网盘。</p>
-        <p>这对中文玩家是实际的障碍：YouTube 在国内打不开，其他几家平台大多要注册海外账号。机器人提供了第二条路：同一条提示下面有一个 <b>Report via website</b> 按钮，点 Need help? 也会得到同样的建议，可以在 Blox.report 的网站上直接上传视频文件再举报。网站需要用 Discord 或 Google 账号登录（Roblox 登录目前被 Roblox 停用了），登录以后还能看到自己提交过的举报。</p>
-        <p>如果你交给旧校舍，就不用操心这一步。录像可以直接传到本站，也可以给 B 站、网盘链接。协助者核对以后，会按官方接受的方式处理：用 Blox.report 网站直接上传，或者转存到上面单子里的平台。用哪种方式、什么时候传的，都会记进你的案件。</p>
-        <p>B 站视频要先过审才能被别人打开，提交前用别的设备或退出登录看一下；网盘链接请设成不需要登录就能预览，并写上提取码。打不开的链接，协助者也没办法替你核对。</p>
-      </section>
-
-      <section id="form">
-        <h2><span class="g-no mono">05</span>表单三栏怎么填</h2>
-        <p>在 #reports 点 <b>Report Player</b>，选“I've already uploaded evidence”，会弹出一个三栏的表单，标题 Player Report，顶部有一句提示：表单将提交至 Blox.report，请勿分享密码和其他任何敏感信息。三栏都是必填。</p>
-        <div class="modal-mock" aria-label="Player Report 表单示意">
-          <div class="modal-mock__head"><span class="modal-mock__ic"></span>Player Report</div>
-          <div class="modal-mock__warn">该表单将提交至 Blox.report。请勿分享密码和其他任何敏感信息。</div>
-          <div class="modal-mock__f"><b>Username <i>*</i></b><span>Username of the user you are reporting</span></div>
-          <div class="modal-mock__f"><b>Reason <i>*</i></b><span class="tall">Why are you reporting this user?</span><em>最多 250 个字符</em></div>
-          <div class="modal-mock__f"><b>Evidence <i>*</i></b><span class="tall">Video evidence of the user breaking the rules</span><em>最多 1000 个字符</em></div>
-          <div class="modal-mock__btns"><span>取消</span><span>提交</span></div>
-          <p class="modal-mock__cap">示意图，按 2026 年 10 月 29 日 Support 服务器里的实际表单绘制。</p>
-        </div>
-        <p><b>Username</b> 填被举报的人的 Roblox 用户名。Trello 上专门强调过这一点：这一栏填的是被举报的人，不是你自己。几个人一起违规，就提交几次，每次一个用户名。</p>
-        <p><b>Reason</b> 用英文写清楚对方做了什么、持续多久、在哪里。上限是 250 个字符（英文字母、空格和标点都算），大约两三句话，所以要直接写事实，不要写情绪。比如：</p>
-        <blockquote class="g-quote mono">Infinite holding at the Gym for about 4 minutes: knocked me down repeatedly and blocked me from getting up. Playerlist shown at 01:32.</blockquote>
-        <p><b>Evidence</b> 贴视频链接，后面写关键时间点：违规从第几秒开始、PLAYERLIST 在第几秒。有中文聊天的，可以在这里附上关键几句的英文翻译，注明原文在视频第几秒。上限 1000 个字符。</p>
-        <p>交给旧校舍的话，这三栏由协助者根据你的材料来写，提交前会在案件里留存一份，你在查询页能看到提交的时间和方式。</p>
-      </section>
-
-      <section id="after">
-        <h2><span class="g-no mono">06</span>提交以后</h2>
-        <p>提交以后，举报进入 Blox.report 的队列，由 Support 服务器的员工认领、核对。关于结果，运营组成员和 Helper（社区助手）在主服务器里说过下面几件事。</p>
-        <p>举报被批准时，Blox.report 会私信提交人，说明这份举报已经处理，这是 Helper 在 9 月 29 日的说法，也有玩家贴出过批准后的通知。批准以后封禁有时要过一阵子才生效，运营组成员的说法是处理起来要一点时间，所以批准后对方还在游戏里，不一定是没封。</p>
-        <p>举报如果 <b>7 天</b>内没有员工处理，机器人会自动驳回（dismiss），腾出位置给新的举报。被自动驳回的可以重新提交。员工也承认人手不够，处理得慢。至于被驳回时会不会附上理由，两位员工的说法不一致：一位在 10 月 18 日说，驳回要么是因为超过 7 天，要么会附带理由；另一位在 10 月 27 日说，这个机器人没有填写驳回理由的功能，如果你确信证据有效，可以 @ 员工或开一个一般支持工单去问。</p>
-        <p>如果点按钮后提示不再接受举报（no longer taking reports），意思是队列满了。Trello 上的说明是：这种情况没有重开公告，但基本每天都会重新开放，隔天再试。</p>
-        <p>Blox.report 的接口文档写着，提交举报前它会检查三件事：这个举报人当天是否超过了上限，被举报的人是否已经被封，以及这个举报人是否已经举报过这个人。所以对方已经被封的，会被直接挡回来；同一个人也不要反复举报。Gakuran 具体设的每日上限是多少，我们没有查到公开数字。</p>
-        <p>2026 年 10 月 3 日，Support 服务器因为抽卡保底的 bug 暂停过一般工单，但当时的公告写明，游戏举报、游戏申诉和 Discord 申诉照常可以提交。10 月 4 日一般工单也恢复了。</p>
-      </section>
-
-      <section id="proxy">
-        <h2><span class="g-no mono">07</span>上不了 Discord 怎么办</h2>
-        <p>举报只能通过 Discord 里的表单或 Blox.report 网站提交，两者都要求提交人有 Discord（网站也可以用 Google 登录）。对很多国内玩家来说，这本身就是门槛。</p>
-        <p>官方有没有说过可以替别人举报？2026 年 9 月 19 日，主服务器 #questions 里有人问：事情发生在我朋友身上，我能替他举报吗？一位 Lead Helper 先回答“最好让你朋友自己报”，另一位 Helper 也说“最好由当事人来报”；提问的人接着说朋友不被允许用 Discord，那位 Lead Helper 回答：那就你来报。也就是说，当事人用不了 Discord 时，由别人代为提交是被接受的，但官方更希望当事人自己报。这是员工在聊天里的答复，不是写进规则的条文，我们也没有找到明文禁止代报的规定。</p>
-        <p>旧校舍的代投就建立在这个前提上。你在本站交材料，协助者核对、翻译、整理成符合表单要求的三栏，再由站长用自己的 Discord 账号在 #reports 里正常提交。提交人一栏是站长，不是你，所以 Blox.report 的私信结果也会发给站长，我们收到后再记进你的案件。有两件事需要你知道：一是站长账号每天能提交的数量受 Blox.report 的上限限制，案件多的时候要排队；二是官方如果要求和当事人直接沟通，我们会通过你留的联系方式转告。</p>
-        <p>如果你自己能用 Discord，只是看不懂英文流程，更推荐你自己提交：按上面五节准备好录像和三栏内容，照着做就行。主服务器的 Helper 在 10 月 29 日也提到，有不少 Helper 会说中文，可以在 #questions 里找他们帮忙。</p>
-      </section>
-
-      <section id="appeal">
-        <h2><span class="g-no mono">08</span>被封了怎么申诉</h2>
-        <p>申诉和举报是两套流程，而且都只能本人办。</p>
-        <p><b>游戏里被封</b>，去 Support 服务器的 <b>#game-appeals</b>。那里同样是 Blox.report 的面板，按钮叫 <b>Appeal Ban</b>，弹出的表单标题 Ban Appeal，三栏必填：Your Roblox Username（被封的那个 Roblox 用户名），Where and why did you get banned?（在哪里、因为什么被封），Do you believe this is a false ban?（为什么认为是误封，附上能证明的东西）。后两栏各限 250 个字符。面板上写着，缺这几项的申诉会被直接驳回；申诉要花时间处理，不要 ping 员工，也不要重复提交。表单要的是“你自己的”用户名，所以申诉应当由被封的人自己提交。</p>
-        <p><b>Discord 服务器被封</b>，去 <b>#discord-appeals</b>。负责人在 7 月写明，被主服务器封了的，通过 <a class="link-u" href="https://appeal.gg/tzqBhsK7RM" target="_blank" rel="noopener">appeal.gg/tzqBhsK7RM</a> 申诉，审判员会审核，结果由 @appeal.gg 私信告诉你。appeal.gg 要求先用 Discord 登录，它看的就是登录的那个账号，别人没法替你申诉。</p>
-        <p>旧校舍能为申诉做的，是帮你核对材料、把中文经过写成合适长度的英文，放在查询页里让你复制。提交那一步要你自己来。</p>
-      </section>
-
-      <section id="mistakes">
-        <h2><span class="g-no mono">09</span>最常见的几种白忙</h2>
-        <p><b>把头顶的名字当成用户名。</b>头顶显示的是角色名，填进表单查不到人。用户名要从 PLAYERLIST 或对方的 Roblox 主页上看。</p>
-        <p><b>录像里没有 PLAYERLIST。</b>员工看到一个角色在打人，却没法确定是哪个账号，只能放弃。录像时顺手按开菜单，只需要两秒。</p>
-        <p><b>只录了十几秒。</b>压制、蹲点、扛人都要两分钟以上，录像也要够长。几秒钟的片段员工明确说过不处理。</p>
-        <p><b>链接打不开。</b>B 站没过审、网盘要登录、视频设成了私密，员工点开是空的。提交前换个设备打开试试。</p>
-        <p><b>一个表单塞好几个人。</b>Username 一栏只能填一个人。几个人就分开报。</p>
-        <p><b>重复举报同一个人。</b>Blox.report 会检查同一个提交人是否报过同一个人，重复提交只会被挡回去，还会占掉当天的提交次数。7 天后被自动驳回的才需要重交。</p>
-        <p><b>在聊天频道里发证据、私信员工催。</b>这些都不进处理队列。员工在面板上写明了不要 ping、不要重复提交。</p>
-      </section>
-
-      <section id="sources" class="g-sources">
-        <h2><span class="g-no mono">10</span>核查记录</h2>
-        <p>以下来源由旧校舍在北京时间 2026 年 10 月 30 日 00:20 至 01:40 之间逐一打开核对。下文日期按 UTC 记，和北京时间可能差一天。Discord 消息需要先加入对应服务器才能看到。核对时弹出的表单都点了“取消”，没有提交任何内容。</p>
-        <ol class="src-list">
-          <li><b>官方 Trello「How to Report」</b>，卡片最后更新 2026-09-07。可举报的九类行为、W+S 例外、录像三要素、PLAYERLIST 示例图、Username 填被举报人、“不再接受举报”的含义。<a class="link-u" href="https://trello.com/c/PIyx5OfC" target="_blank" rel="noopener">trello.com/c/PIyx5OfC</a></li>
-          <li><b>官方 Trello「Game &amp; Discord Links」</b>，最后更新 2026-10-07。Support 服务器邀请链接。<a class="link-u" href="https://trello.com/c/E1YS6Z97" target="_blank" rel="noopener">trello.com/c/E1YS6Z97</a></li>
-          <li><b>主服务器 #︱、support</b>，Manager，2026-09-09。举报和申诉都去 Support 服务器，由 Judges 处理；使用 Ticket Tool。</li>
-          <li><b>主服务器 #︱、faq 与 #︱、links</b>，2026-09-06（FAQ 于 10-11 编辑）。举报通过 Support 服务器提交；官方链接列表。</li>
-          <li><b>Support 服务器 #information</b>，2026-07-28。四类事务分别对应的频道。</li>
-          <li><b>Support 服务器 #reports</b>，Blox.report 面板，2026-07-27。面板文字、按钮、Need help? 的回复、接受的视频平台列表、Player Report 表单三栏及字数上限（由表单输入框的长度限制读出）。</li>
-          <li><b>Support 服务器 #game-appeals</b>，Blox.report 面板，2026-07-27。Ban Appeal 表单三栏及字数上限。</li>
-          <li><b>Support 服务器 #discord-appeals</b>，Chief Justice，2026-07-27。appeal.gg 申诉链接，结果由 @appeal.gg 私信。</li>
-          <li><b>Support 服务器 #announcements</b>，Chief Justice，2026-10-03 与 10-04。工单暂停与恢复；暂停期间举报和申诉照常。</li>
-          <li><b>主服务器 #、questions 员工答复</b>：2026-09-19 关于代朋友举报（Lead Helper、Helper）；2026-09-06 至 10-02 关于两分钟门槛（Trial Staff，多次）；2026-09-23 关于批准后封禁的延迟（Trial Staff）；2026-09-29 关于批准后的私信通知（Helper）；2026-10-18 与 10-27 关于 7 天自动驳回和驳回理由（Trial Staff，两种说法）；2026-10-28 关于俯卧撑表情（两位 Helper 说法相反）；2026-10-29 关于语音中的种族嘲讽（两位 Helper）和会说中文的 Helper。</li>
-          <li><b>Blox.report 文档</b>。提交前检查每日上限、是否已封、是否已报过；举报数据包含 Roblox 用户 ID、用户名和显示名称；证据可以是链接或直接上传。<a class="link-u" href="https://docs.blox.report" target="_blank" rel="noopener">docs.blox.report</a></li>
-          <li><b>Blox.report Report Hub</b>。可用 Discord 或 Google 登录，Roblox 登录暂停；可查看自己提交过的举报。<a class="link-u" href="https://blox.report/report/1521962544648949813" target="_blank" rel="noopener">blox.report/report/1521962544648949813</a></li>
+  <div class="paper g-body">
+    <div class="wrap g-layout">
+      <nav class="toc" aria-label="目录">
+        <span class="kicker"><b>目录</b><i></i>INDEX</span>
+        <ol id="toc">
+          <li><a href="#what">要交什么</a></li>
+          <li><a href="#id">怎么找对方的 ID</a></li>
+          <li><a href="#video">什么样的视频有效</a></li>
+          <li><a href="#rules">哪些行为能报</a></li>
+          <li><a href="#after">交上来以后</a></li>
+          <li><a href="#appeal">被封了怎么办</a></li>
+          <li><a href="#sources">出处</a></li>
         </ol>
-        <p><b>尚未证实或存在变化的地方：</b>Gakuran 的每日举报上限具体是多少；驳回时是否一定附带理由；擦边动作（俯卧撑表情等）是否算性暗示；由本站链接作为证据能否被 Blox.report 接受（我们不这样做，统一用官方接受的方式上传）。员工在聊天里的答复不等于成文规则，以后可能改变。发现这里和官方当前说法不一致，请在提交材料时告诉我们。</p>
-      </section>
+        <div class="toc__date">
+          <span class="num">10/30</span>
+          <span class="mono">2026 · 最后整理</span>
+        </div>
+      </nav>
 
-      <div class="g-end frame">
-        <h2 class="h-2">材料准备好了？</h2>
-        <p>录像、对方用户名、时间地点和经过，交到旧校舍。核对、翻译和提交由我们来做，每一步你都能在查询页看到。</p>
-        <a class="pill pill--accent" href="/kyukosha/report/"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="pill__t">提交举报材料</span></a>
-      </div>
-    </article>
+      <article class="prose" id="article">
+        <section id="what">
+          <h2><span class="g-no num">01</span>要交什么</h2>
+          <p>只要两样：<b>被举报人的 Roblox ID</b>，和<b>一段有效的视频</b>。时间、地点、经过都不是必填，你想补充就写几句，不写也行。</p>
+          <div class="g-two">
+            <div class="g-card"><span class="g-card__n num">1</span><b>Roblox ID</b><span>用户名或数字 ID 都行。头顶那行字不是 ID。</span></div>
+            <div class="g-card"><span class="g-card__n num">2</span><b>视频</b><span>从头录到尾、看得出是谁。不收 OBS 录屏。</span></div>
+          </div>
+        </section>
+
+        <section id="id">
+          <h2><span class="g-no num">02</span>怎么找对方的 ID</h2>
+          <p>学乱里每个人头顶显示的是<b>角色名</b>，在游戏里随便就能改，所以不能当 ID 用。下面三个地方都能找到真正的 ID，给其中一样就行：</p>
+          <ol class="g-steps">
+            <li><b>游戏里的 PLAYERLIST。</b>按左上角 MENU，点 PLAYERLIST，每个角色名后面就是他的 Roblox 用户名。上面那张官方示例图里，左边高亮的就是这一项。</li>
+            <li><b>对方的 Roblox 主页。</b>主页上大字是显示名称，下面 @ 后面那串才是用户名。</li>
+            <li><b>主页网址。</b>网址里 <span class="mono">roblox.com/users/</span> 后面的那串数字就是数字 ID，整个网址贴过来也可以。</li>
+          </ol>
+          <p class="g-tip">提交时网站会当场去 Roblox 查一遍，查到了会显示对方的用户名和数字 ID 让你确认，查不到会直接告诉你。</p>
+        </section>
+
+        <section id="video">
+          <h2><span class="g-no num">03</span>什么样的视频有效</h2>
+          <p><b>从违规开始一直录到结束，中间不剪、不加速。</b>剪过的视频没法证明前后发生了什么，官方也不会认。</p>
+          <p><b>画面里看得出是谁。</b>录的时候打开一下 PLAYERLIST，让角色名和用户名出现在同一段视频里，这是最稳的办法。</p>
+          <p><b>持续的行为要录够两分钟。</b>压着不让起身、一直扛着走、困在角落出不去，几秒钟的片段说明不了问题。</p>
+          <p><b>不收 OBS 录屏。</b>用手机自带的录屏、Windows 的 Xbox Game Bar（按 Win + G），或者 Medal 录都可以。</p>
+          <p>视频可以直接传到本站，单个 200MB 以内；也可以贴 B 站、网盘、YouTube、Medal 等链接，前提是不用登录就能打开，网盘记得写提取码。</p>
+        </section>
+
+        <section id="rules">
+          <h2><span class="g-no num">04</span>哪些行为能报</h2>
+          <p>官方 Trello 的举报说明里列了九种：</p>
+          <dl class="g-rules">
+            <div><dt>Exploiting</dt><dd>外挂、脚本</dd></div>
+            <div><dt>Bug Abuse</dt><dd>故意利用漏洞</dd></div>
+            <div><dt>Infinite Holding</dt><dd>无限压制、反复击倒不让起身</dd></div>
+            <div><dt>Permanent Trapping Players</dt><dd>把人困住出不来</dd></div>
+            <div><dt>Prolonged Carrying</dt><dd>长时间扛着别人不放</dd></div>
+            <div><dt>Throwing into the void</dt><dd>把人扔出地图</dd></div>
+            <div><dt>Extreme Harassment</dt><dd>严重骚扰，持续针对某个人</dd></div>
+            <div><dt>Explicit Drawings</dt><dd>画色情、下流的东西</dd></div>
+            <div><dt>Exploiter Affiliation</dt><dd>和开挂的人勾结</dd></div>
+          </dl>
+          <p>单纯按着前后键在倒地的人身上晃（W+S）现在不封，明显带性意味的除外。拿不准算不算，照样交上来，协助者会帮你判断。</p>
+        </section>
+
+        <section id="after">
+          <h2><span class="g-no num">05</span>交上来以后</h2>
+          <p>你会拿到一个案件编号和一个查询码，凭这两样在“查询进度”里看到每一步。</p>
+          <ol class="g-flow">
+            <li><b>核对</b>协助者确认 ID 查得到、视频看得清。缺东西会在查询页留言。</li>
+            <li><b>代投</b>站长用自己的 Discord 账号，在 Gakuran Support 的官方举报表单里提交，英文由我们写。</li>
+            <li><b>官方处理</b>批准后 Blox.report 会发私信通知；7 天没人处理会被自动关闭，我们会重新提交。</li>
+            <li><b>回执</b>提交时间、提交方式、官方回复都写进你的查询页。没真正提交前不会显示“已代投”。</li>
+          </ol>
+          <p class="g-tip">你自己能上 Discord 也可以自己交：进 Gakuran Support 服务器的 #reports，点 Report Player，三栏分别填对方用户名、英文事由、视频链接。</p>
+        </section>
+
+        <section id="appeal">
+          <h2><span class="g-no num">06</span>被封了怎么办</h2>
+          <p>申诉只能本人交。游戏里被封，去 Support 服务器的 #game-appeals 点 Appeal Ban；Discord 服务器被封，用被封的那个账号登录 <a class="link-u" href="https://appeal.gg/tzqBhsK7RM" target="_blank" rel="noopener">appeal.gg/tzqBhsK7RM</a>。英文不会写可以问我们。</p>
+        </section>
+
+        <section id="sources" class="g-sources">
+          <h2><span class="g-no num">07</span>出处</h2>
+          <ul>
+            <li>官方 Trello「How to Report」：<a class="link-u" href="https://trello.com/c/PIyx5OfC" target="_blank" rel="noopener">trello.com/c/PIyx5OfC</a>（可举报行为、PLAYERLIST 示例图）</li>
+            <li>Gakuran Support 服务器：<a class="link-u" href="https://discord.gg/nEd7NXkh2p" target="_blank" rel="noopener">discord.gg/nEd7NXkh2p</a>（#reports、#game-appeals、#discord-appeals）</li>
+            <li>Blox.report 举报中心：<a class="link-u" href="https://blox.report/report/1521962544648949813" target="_blank" rel="noopener">blox.report/report/1521962544648949813</a></li>
+          </ul>
+          <p class="mute">规则可能会变，以官方当前的说法为准。“不收 OBS 录屏”是本站的收件要求。</p>
+        </section>
+
+        <div class="g-end">
+          <h2 class="h-2">准备好了</h2>
+          <p>ID 和视频都在手上，就交过来吧。</p>
+          <a class="btn btn--solid" href="/kyukosha/report/"><span class="btn__t">提交举报<small>File a report</small></span><span class="btn__ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>
+        </div>
+      </article>
+    </div>
   </div>
 </main>
 

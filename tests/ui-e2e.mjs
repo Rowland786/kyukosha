@@ -31,46 +31,36 @@ const shot = (n) => page.screenshot({ path: path.join(SHOTS, `ui-${tag}-${n}.png
 const openOps = (p) => p.evaluate(() => document.querySelectorAll('.ops details').forEach((d) => (d.open = true)));
 const next = async () => { await page.click('#next'); await page.waitForTimeout(400); };
 
-// ---------- 提交 ----------
+// ---------- 提交：对方 ID → 视频 → 确认 ----------
 await page.goto(SITE + '/report/', { waitUntil: 'networkidle' });
-ok(await page.isVisible('.fstep[data-step="0"]'), '打开提交页');
-await next();
-await page.fill('.trow .t-user', 'builderman');
-await page.fill('.trow .t-char', 'UI Test Character');
-await next();
-await page.waitForSelector('.fstep[data-step="2"]:not([hidden])', { timeout: 20000 });
-ok(await page.locator('.t-res.is-ok').count() === 1, 'Roblox 用户名核对通过');
-await page.fill('input[name=date]', '2026-10-29');
-await page.fill('input[name=time]', '21:15');
-await page.selectOption('select[name=location]', { index: 2 });
-await page.check('input[name=category][value=infinite_holding]', { force: true });
-await page.fill('input[name=duration]', '约 4 分钟');
-await page.fill('textarea[name=narrative]', '【自动化测试，非真实举报】对方在体育馆连续击倒我四分钟，不让起身，录像 01:32 打开了 PLAYERLIST。');
-await page.fill('.crow .c-who', 'builderman');
-await page.fill('.crow .c-text', '测试聊天原文：你起不来的');
-await next();
-await page.waitForSelector('.fstep[data-step="3"]:not([hidden])');
+ok(await page.isVisible('.dlg[data-step="0"]'), '打开提交页');
+await page.click('.dlg[data-step="0"] [data-go="1"]');
+await page.fill('#target', 'no_such_user_zz91');
+await page.click('#lookupBtn');
+await page.waitForSelector('.chk--fail', { timeout: 20000 });
+ok(await page.isHidden('#idNext'), '查不到的 ID 不能继续');
+await page.fill('#target', 'https://www.roblox.com/users/156/profile');
+await page.click('#lookupBtn');
+await page.waitForSelector('#idNext:not([hidden])', { timeout: 20000 });
+ok((await page.textContent('#lookupLog')).includes('@builderman'), '主页链接核对出 @builderman');
+await page.click('#idNext [data-go="2"]');
 await page.setInputFiles('#fileInput', vid);
 await page.waitForSelector('.file.done', { timeout: 120000 });
 ok(true, '视频分片上传完成');
-await page.fill('.lrow .l-url', 'https://www.bilibili.com/video/BV1xx411c7mD');
-await page.selectOption('select[name=playerlist]', 'yes');
-await page.fill('input[name=playerlistAt]', '01:32');
+ok(await page.isHidden('#videoNext'), '没确认非 OBS 前不能继续');
+await page.check('#notObs', { force: true });
+await page.waitForSelector('#videoNext:not([hidden])');
 await shot('03-evidence');
-await next();
-await page.fill('input[name=nickname]', 'UI 测试');
-await page.selectOption('select[name=contactType]', 'qq');
-await page.fill('input[name=contact]', '10000');
-await next();
-await page.waitForSelector('.fstep[data-step="5"]:not([hidden])');
-ok((await page.textContent('#review')).includes('builderman'), '确认页显示被举报人');
+await page.click('#videoNext [data-go="3"]');
+await page.fill('#note', '【自动化测试，非真实举报】视频 00:10 开始。');
+await page.selectOption('#contactType', 'qq');
+await page.fill('#contact', '10000');
 await page.check('#consent', { force: true });
-await shot('05-review');
 await page.click('#submit');
 await page.waitForSelector('#receipt:not([hidden])', { timeout: 60000 });
 const id = (await page.textContent('#rcId')).trim();
 const key = (await page.textContent('#rcKey')).trim();
-ok(/^GK\d{4}-[A-Z0-9]{5}$/.test(id) && key.length === 19, `回执 ${id}`);
+ok(/^GK[0-9]{4}-[A-Z0-9]{5}$/.test(id) && key.length === 19, `回执 ${id}`);
 await shot('06-receipt');
 
 // ---------- 查询 ----------
@@ -96,7 +86,7 @@ await desk.click('#loginForm button[type=submit]');
 await desk.waitForSelector('#deskApp:not([hidden])', { timeout: 30000 });
 await desk.click(`.desk-item[data-id="${id}"]`);
 await desk.waitForSelector('.dd-head');
-ok((await desk.textContent('.dd-card')).includes('10000'), '审核台能看到联系方式');
+ok((await desk.textContent('#detail')).includes('10000'), '审核台能看到联系方式');
 await desk.click('[data-act=claim]');
 await desk.waitForTimeout(1500);
 await openOps(desk);
@@ -121,6 +111,7 @@ await page.fill('#reply textarea[name=text]', '测试补充：第二段录像 00
 await page.fill('#links .l-url', 'https://streamable.com/uitest');
 await page.click('#replyBtn');
 await page.waitForFunction(() => document.querySelector('#cStatus')?.textContent.trim() === '核对中', null, { timeout: 30000 });
+ok(await page.isVisible('#rail li.is-on'), '进度条高亮当前一步');
 ok(true, '补充后回到核对中');
 await shot('08-track');
 
@@ -162,7 +153,7 @@ await shot('09-result');
 
 // ---------- 清理 ----------
 const token = await desk.evaluate(() => sessionStorage.getItem('kyukosha.desk'));
-const api = (await desk.evaluate(() => fetch('/kyukosha/').then(() => 1))) && 'https://kyukosha-desk.netlify.app';
+const api = process.env.API || 'https://kyukosha-desk.netlify.app';
 const del = await desk.evaluate(async ([api, token, id]) => (await fetch(api + '/api/desk/delete', { method: 'POST', headers: { 'content-type': 'application/json', authorization: 'Bearer ' + token }, body: JSON.stringify({ id }) })).json(), [api, token, id]);
 ok(del.ok, '测试案件已删除');
 ok(errors.length === 0, `页面脚本错误 ${errors.length} 个${errors.length ? '：' + errors.join(' | ') : ''}`);

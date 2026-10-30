@@ -102,19 +102,27 @@ function requireDesk(req) {
   return s;
 }
 
-// ---------- Roblox 用户名核对 ----------
-async function robloxLookup(usernames) {
-  const list = [...new Set(usernames.map((u) => String(u || '').trim().replace(/^@/, '')).filter(Boolean))].slice(0, 10);
+// ---------- Roblox 账号核对：用户名或数字 ID 都可以 ----------
+async function robloxLookup(inputs) {
+  const list = [...new Set(inputs.map((u) => String(u || '').trim().replace(/^@/, '')).filter(Boolean))].slice(0, 10);
   if (!list.length) return [];
-  const r = await fetch('https://users.roblox.com/v1/usernames/users', {
-    method: 'POST', headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ usernames: list, excludeBannedUsers: false }),
-  });
-  if (!r.ok) throw new Bad('Roblox 用户名查询暂时不可用，请稍后再试', 502);
-  const data = (await r.json()).data || [];
+  // 主页链接里的数字也认，例如 roblox.com/users/156/profile
+  const idOf = (s) => (/^\d{1,15}$/.test(s) ? s : (s.match(/roblox\.com\/users\/(\d+)/i) || [])[1]);
+  const ids = list.map(idOf).filter(Boolean);
+  const names = list.filter((s) => !idOf(s));
+  const post = async (url, body) => {
+    const r = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+    if (!r.ok) throw new Bad('Roblox 账号查询暂时不可用，请稍后再试', 502);
+    return (await r.json()).data || [];
+  };
+  const [byName, byId] = await Promise.all([
+    names.length ? post('https://users.roblox.com/v1/usernames/users', { usernames: names, excludeBannedUsers: false }) : [],
+    ids.length ? post('https://users.roblox.com/v1/users', { userIds: ids.map(Number), excludeBannedUsers: false }) : [],
+  ]);
   return list.map((u) => {
-    const hit = data.find((d) => d.requestedUsername?.toLowerCase() === u.toLowerCase());
-    return hit ? { requested: u, found: true, id: hit.id, name: hit.name, displayName: hit.displayName, verified: !!hit.hasVerifiedBadge } : { requested: u, found: false };
+    const id = idOf(u);
+    const hit = id ? byId.find((d) => String(d.id) === id) : byName.find((d) => d.requestedUsername?.toLowerCase() === u.toLowerCase());
+    return hit ? { requested: u, by: id ? 'id' : 'name', found: true, id: hit.id, name: hit.name, displayName: hit.displayName, verified: !!hit.hasVerifiedBadge } : { requested: u, by: id ? 'id' : 'name', found: false };
   });
 }
 
@@ -224,8 +232,9 @@ async function createCase(req, ctx, b) {
   need(!b.hp, '提交失败');
   need(b.consent === true, '需要先勾选确认');
   const type = TYPES.includes(b.type) ? b.type : 'report';
+  // 举报只硬性要求两样：对方查得到的 Roblox 账号、一段视频。其余都是选填。
   const reporter = {
-    nickname: str(b.reporter?.nickname, 40, { req: true, name: '称呼' }),
+    nickname: str(b.reporter?.nickname, 40),
     contactType: str(b.reporter?.contactType, 20),
     contact: str(b.reporter?.contact, 120),
     roblox: str(b.reporter?.roblox, 40),
@@ -233,16 +242,17 @@ async function createCase(req, ctx, b) {
     canDiscord: str(b.reporter?.canDiscord, 20),
     appealAccount: str(b.reporter?.appealAccount, 60),
   };
-  const rawTargets = (Array.isArray(b.targets) ? b.targets : []).slice(0, 5).map((t) => ({ requested: str(t.username, 40).replace(/^@/, ''), characterName: str(t.characterName, 60), displayName: str(t.displayName, 60) })).filter((t) => t.requested);
-  if (type === 'report') need(rawTargets.length > 0, '至少填一个被举报人的 Roblox 用户名');
+  const rawTargets = (Array.isArray(b.targets) ? b.targets : []).slice(0, 5).map((t) => ({ requested: str(t.username, 120).replace(/^@/, ''), characterName: str(t.characterName, 60), displayName: str(t.displayName, 60) })).filter((t) => t.requested);
+  if (type === 'report') need(rawTargets.length > 0, '填一下对方的 Roblox 用户名或 ID');
   const looked = rawTargets.length ? await robloxLookup(rawTargets.map((t) => t.requested)) : [];
   const targets = rawTargets.map((t) => {
     const hit = looked.find((x) => x.requested.toLowerCase() === t.requested.toLowerCase()) || {};
     return { ...t, found: !!hit.found, id: hit.id || null, name: hit.name || '', displayNameApi: hit.displayName || '' };
   });
+  if (type === 'report') need(targets.every((t) => t.found), `Roblox 上查不到：${targets.filter((t) => !t.found).map((t) => t.requested).join('、')}`);
   const cat = Object.hasOwn(CATEGORIES, b.incident?.category) ? b.incident.category : 'other';
   const incident = {
-    date: str(b.incident?.date, 20, { req: true, name: '日期' }),
+    date: str(b.incident?.date, 20),
     time: str(b.incident?.time, 20),
     tz: str(b.incident?.tz, 40) || 'Asia/Shanghai',
     server: str(b.incident?.server, 40),
@@ -250,7 +260,7 @@ async function createCase(req, ctx, b) {
     category: cat,
     categoryEn: CATEGORIES[cat],
     duration: str(b.incident?.duration, 40),
-    narrative: str(b.incident?.narrative, 5000, { req: true, name: '事情经过' }),
+    narrative: str(b.incident?.narrative, 5000),
   };
   const evidence = {
     links: readLinks(b.evidence?.links),
@@ -260,8 +270,12 @@ async function createCase(req, ctx, b) {
     clipStart: str(b.evidence?.clipStart, 40),
     clipEnd: str(b.evidence?.clipEnd, 40),
     note: str(b.evidence?.note, 1000),
+    notObs: b.evidence?.notObs === true,
   };
-  if (type === 'report') need(evidence.links.length > 0 || (b.evidence?.uploads || []).length > 0, '举报需要视频：上传文件或者贴一个链接');
+  if (type === 'report') {
+    need(evidence.links.length > 0 || (b.evidence?.uploads || []).length > 0, '举报需要视频：上传文件或者贴一个链接');
+    need(evidence.notObs, '请确认视频不是 OBS 录屏');
+  }
   const id = newCaseId();
   evidence.files = await bindUploads(b.evidence?.uploads, id);
   const key = newKey();

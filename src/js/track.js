@@ -63,7 +63,14 @@ function render(c) {
     ap.innerHTML = `<b>请你本人提交申诉</b>${steps}<div class="pack">${Object.entries(c.appealPack).map(([k, v]) => `<div class="pack__row"><span class="mono">${esc(k)}</span><p>${esc(v)}</p><button type="button" class="link-u" data-copy="${esc(v)}">复制</button></div>`).join('')}</div>`;
   }
 
-  // 时间线：先画阶段刻度，再列具体记录
+  // 顶部进度条
+  const RAIL = ['received', 'reviewing', 'ready', 'submitted', 'result'];
+  const at = c.status === 'needs_info' ? 1 : c.status === 'closed' ? -1 : RAIL.indexOf(c.status);
+  $$('#rail li').forEach((li, i) => {
+    li.classList.toggle('is-done', at >= 0 && i < at);
+    li.classList.toggle('is-on', i === at && c.status !== 'needs_info');
+    li.classList.toggle('is-warn', i === at && c.status === 'needs_info');
+  });
   const reached = STAGES.indexOf(c.status);
   const evs = c.events.slice().reverse();
   $('#cEvents').innerHTML = evs.map((e) => `<li class="tl__it tl__it--${e.actor}"><span class="mono tl__t">${fmtTime(e.at)}</span><b>${esc((STATUS_CN[e.type] || {}).t || { created: '已收件', supplement: '你补充了材料', message: '协助者留言', reopened: '重新打开' }[e.type] || e.type)}</b>${e.text ? `<p class="pre">${esc(e.text)}</p>` : ''}</li>`).join('');
@@ -72,12 +79,13 @@ function render(c) {
   const t = c.targets || [];
   const row = (k, v) => (v ? `<div><dt>${k}</dt><dd>${v}</dd></div>` : '');
   $('#cSummary').innerHTML = [
-    row(c.type === 'report' ? '被举报人' : '账号', t.map((x) => `@${esc(x.name || x.requested)}${x.found ? '' : ' <span class="mute">（未查到）</span>'}`).join('<br>')),
+    row(c.type === 'report' ? '被举报人' : '账号', t.map((x) => `@${esc(x.name || x.requested)}${x.id ? ` <span class="mono mute">ID ${x.id}</span>` : ''}${x.found ? '' : ' <span class="mute">（未查到）</span>'}`).join('<br>')),
     row('时间', esc([c.incident.date, c.incident.time].filter(Boolean).join(' '))),
     row('地点', esc(c.incident.location)),
-    c.type === 'report' ? row('类别', esc(CATEGORY_CN[c.incident.category]?.t || '')) : '',
+    c.type === 'report' && c.incident.category !== 'other' ? row('类别', esc(CATEGORY_CN[c.incident.category]?.t || '')) : '',
     row('经过', `<span class="pre">${esc(c.incident.narrative)}</span>`),
     row('聊天原文', c.chat?.length ? `${c.chat.length} 条` : ''),
+    row('补充', c.extra ? `<span class="pre">${esc(c.extra)}</span>` : ''),
     row('文件', c.evidence.files.map((f) => `${esc(f.name)} <span class="mute">${fmtSize(f.size)}</span>`).join('<br>')),
     row('链接', c.evidence.links.map((l) => `<a class="link-u" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.host || l.url)}</a>${l.note ? ' · ' + esc(l.note) : ''}`).join('<br>')),
   ].join('');

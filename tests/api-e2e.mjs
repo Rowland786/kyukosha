@@ -35,22 +35,24 @@ ok(wrongTok.status === 403, '错误的上传凭证被拒绝');
 const fin = await j(`/api/uploads/${up.d.id}/complete`, { method: 'POST', headers: { 'x-upload-token': up.d.token } });
 ok(fin.d?.ok, '上传完成确认');
 
-const bad1 = await j('/api/cases', { method: 'POST', body: { type: 'report', consent: true, reporter: { nickname: '测试' }, targets: [{ username: 'builderman' }], incident: { date: '2026-10-29', narrative: '' } } });
-ok(bad1.status === 400, `缺少经过时拒收：${bad1.d?.error}`);
+const bad1 = await j('/api/cases', { method: 'POST', body: { type: 'report', consent: true, targets: [{ username: 'builderman' }], evidence: { links: [{ url: 'https://example.com/v' }] } } });
+ok(bad1.status === 400, `没确认非 OBS 时拒收：${bad1.d?.error}`);
+const bad2 = await j('/api/cases', { method: 'POST', body: { type: 'report', consent: true, targets: [{ username: 'no_such_user_zz91' }], evidence: { links: [{ url: 'https://example.com/v' }], notObs: true } } });
+ok(bad2.status === 400 && /查不到/.test(bad2.d?.error), `查不到的账号拒收：${bad2.d?.error}`);
+const bad3 = await j('/api/cases', { method: 'POST', body: { type: 'report', consent: true, targets: [{ username: '156' }], evidence: { notObs: true } } });
+ok(bad3.status === 400, `没有视频时拒收：${bad3.d?.error}`);
 
 const created = await j('/api/cases', {
   method: 'POST', body: {
     type: 'report', consent: true, hp: '',
-    reporter: { nickname: 'E2E 测试', contactType: 'qq', contact: '10000', relation: 'victim', canDiscord: 'no' },
-    targets: [{ username: 'builderman', characterName: 'Test Name' }],
-    incident: { date: '2026-10-29', time: '20:15', tz: 'Asia/Shanghai', server: 'public', location: 'Gym 体育馆', category: 'infinite_holding', duration: '约 4 分钟', narrative: '【自动化测试】对方在体育馆把我连续击倒四分钟，不让起身。' },
-    chat: [{ speaker: 'builderman', time: '20:16', text: '测试聊天原文' }],
-    evidence: { links: [{ url: 'https://www.bilibili.com/video/BV1xx411c7mD', note: '测试链接' }], uploads: [{ id: up.d.id, token: up.d.token }], playerlist: 'yes', playerlistAt: '01:32' },
+    reporter: { nickname: 'E2E 测试', contactType: 'qq', contact: '10000' },
+    targets: [{ username: '156' }],
+    evidence: { links: [{ url: 'https://www.bilibili.com/video/BV1xx411c7mD', note: '测试链接' }], uploads: [{ id: up.d.id, token: up.d.token }], notObs: true },
     extra: '这是端到端测试案件，测试结束会删除。',
   },
 });
 ok(created.d?.id && created.d?.key, `创建案件 ${created.d?.id}`);
-ok(created.d?.targets?.[0]?.found && created.d.targets[0].id === 156, '服务端核对 Roblox 用户名');
+ok(created.d?.targets?.[0]?.found && created.d.targets[0].id === 156 && created.d.targets[0].name === 'builderman', '服务端按数字 ID 核对 Roblox 账号');
 const { id, key } = created.d;
 
 const v1 = await j('/api/cases/view', { method: 'POST', body: { id, key } });

@@ -1,5 +1,16 @@
 import { BASE, $, $$, esc, toast, copyText } from './common.js';
 import '../styles/archive.css';
+import { vision } from './vision.js';
+
+// 头部画面：图鉴 No.0016 Rebel 实机截图
+const av = $('#arcVision');
+if (av) vision(av, {
+  src: `${BASE}mirror/images/${encodeURI('男性/制服/016_Rebel.png')}`,
+  fit: 'contain', scale: innerWidth > 960 ? 1.05 : 1.2, align: innerWidth > 960 ? [0.58, 0.55] : [0.5, 0.2],
+  fade: 0.2, points: 70, mesh: 0.3, meshFrom: [0.5, 0.3], seed: 13, contrast: 1.45, dim: 0.62,
+  crossAt: [0.58, 0.5], chain: innerWidth > 960 ? { from: [0.68, 0.12], to: [0.98, 0.86], n: 5, r: 0.07 } : null,
+  boxes: [{ x: 0.2, y: 0.18, w: 0.6, h: 0.8, label: 'No.0016 · Rebel · ???', dashed: true }],
+});
 
 // 分类顺序、种族中文名和两段数据说明沿用 Kaglorn 原站的写法
 const GENDERS = ['全部', '男性', '女性', '通用'];
@@ -108,7 +119,7 @@ function render() {
   const ordered = [];
   for (const k of keys) {
     const items = groups.get(k);
-    html += `<div class="sect"><h2 class="sect__t">${esc(label(k))}</h2><span class="sect__n mono">${items.length}</span><span class="sect__l"></span></div>`;
+    html += `<div class="sect"><h2 class="sect__t">${esc(label(k))}</h2><span class="sect__n">${items.length}</span><span class="sect__l"></span></div>`;
     html += items.map((d) => { ordered.push(d); return card(d, idx++); }).join('');
   }
   current = ordered;
@@ -151,8 +162,8 @@ function openLb(i, push = true) {
   ];
   $('#lbFields').innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
   $('#lbActs').innerHTML = `
-    <a class="pill pill--sm" href="${fileUrl(d.file)}" target="_blank" rel="noopener"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="pill__t">打开原图</span></a>
-    <a class="pill pill--sm pill--ghost" href="${fileUrl(d.file)}" download="${esc(d.file.split('/').pop())}"><span class="pill__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"/></svg></span><span class="pill__t">下载</span></a>
+    <a class="btn btn--solid btn--sm" href="${fileUrl(d.file)}" target="_blank" rel="noopener"><span class="btn__t">打开原图</span><span class="btn__ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>
+    <a class="btn btn--sm" href="${fileUrl(d.file)}" download="${esc(d.file.split('/').pop())}"><span class="btn__t">下载</span><span class="btn__ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"/></svg></span></a>
     <div class="lb__src">
       <a class="link-u" href="${originUrl(d.file)}" target="_blank" rel="noopener">在 Kaglorn 原站打开这张图</a>
       ${d.url ? `<a class="link-u" href="${esc(d.url)}" target="_blank" rel="noopener">Trello 原附件</a>` : ''}
@@ -230,6 +241,10 @@ function openFromHash() {
 fetch(BASE + 'data/archive.json').then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }).then((data) => {
   DATA = data.records; META = data;
   const s = data.source;
+  const gif = DATA.filter((d) => d.frames > 1).length;
+  $('#headTotal').textContent = DATA.length.toLocaleString('zh-CN');
+  $('#headGif').textContent = gif;
+  $('#headCat').textContent = new Set(DATA.map((d) => d.category)).size;
   $('#syncInfo').innerHTML = `同步自 ${esc(s.repo.replace('https://github.com/', ''))} @ <a class="link-u" href="${esc(s.repo)}/commit/${esc(s.commit)}" target="_blank" rel="noopener">${esc(s.commit.slice(0, 7))}</a><br>上游提交 ${esc(s.commitDate.slice(0, 10))} · 本站同步 ${esc(data.fetchedAt.slice(0, 10))}`;
   // 整包下载：构建时按性别打包，大小按记录现算
   const zips = [['男性', 'male'], ['女性', 'female'], ['通用', 'unisex']].map(([g, slug]) => {

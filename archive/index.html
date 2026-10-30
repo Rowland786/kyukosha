@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>服饰图鉴 · 旧校舍</title>
 <meta name="description" content="学乱 Gakuran 服饰图鉴的完整镜像：制服、发型、面部、配饰、滑板、终结技，按性别、部位、稀有度和种族查阅。资料由 Kaglorn 整理自官方 Trello。">
-<meta name="theme-color" content="#d8d6d0">
+<meta name="theme-color" content="#0a0a0b">
 <link rel="icon" href="/kyukosha/favicon.svg" type="image/svg+xml">
 <script type="module" src="/src/js/archive.js"></script>
 </head>
@@ -14,16 +14,18 @@
 
 <main id="main">
   <section class="arc-head">
+    <canvas class="vision" id="arcVision" aria-hidden="true"></canvas>
     <div class="wrap arc-head__grid">
-      <div>
-        <span class="label"><b>服饰图鉴</b><span class="bar"></span>Archive mirror</span>
-        <h1 class="h-1 arc-title">学乱服饰图鉴</h1>
-        <p class="lede">制服、发型、面部、配饰、滑板和终结技，全部来自官方 Trello 看板。原图、原字段一律照搬，原资料里空着的名称和编号，这里也空着。</p>
+      <div class="arc-head__copy">
+        <span class="kicker" data-reveal><span class="dot"></span><b>服饰图鉴</b><i></i>ARCHIVE · MIRROR</span>
+        <h1 class="arc-title" data-strip><span class="strip">学乱服饰图鉴</span></h1>
+        <p class="lede" data-reveal>制服、发型、面部、配饰、滑板、终结技，全部出自官方 Trello 看板。原图、原字段照搬，原资料里空着的名称和编号，这里也空着。</p>
+        <p class="arc-head__count mono" data-reveal><b class="num" id="headTotal">—</b> RECORDS　<b class="num" id="headGif">—</b> GIF　<b class="num" id="headCat">—</b> CATEGORIES</p>
       </div>
-      <aside class="credit-card frame" aria-label="资料来源">
-        <span class="label"><b>资料作者</b><span class="bar"></span>Credit</span>
-        <p class="credit-card__name">Kaglorn</p>
-        <p class="credit-card__txt">本图鉴的数据整理、图片切分、分类和中文标注都是 Kaglorn 的工作，原始素材来自 Gakuran 官方 Trello。本站只重做了查阅界面，并把全部公开文件镜像到本站，方便国内打开。</p>
+      <aside class="credit-card" aria-label="资料来源">
+        <div class="credit-card__bar mono">CREDIT · 资料作者</div>
+        <p class="credit-card__name cond">Kaglorn</p>
+        <p class="credit-card__txt">数据整理、图片切分、分类和中文标注都是 Kaglorn 做的，素材来自 Gakuran 官方 Trello。本站只重做了查阅界面，把公开文件全部镜像过来，方便国内打开。</p>
         <ul class="credit-card__links">
           <li><a class="link-u" href="https://kaglorn.github.io/gakuran-clothes/" target="_blank" rel="noopener">原站 kaglorn.github.io/gakuran-clothes</a></li>
           <li><a class="link-u" href="https://github.com/Kaglorn/gakuran-clothes" target="_blank" rel="noopener">原仓库 Kaglorn/gakuran-clothes</a></li>
@@ -60,10 +62,10 @@
     </div>
   </section>
 
-  <section class="section section--hi arc-dl" id="downloads">
+  <section class="section paper arc-dl" id="downloads">
     <div class="wrap arc-dl__grid">
       <div>
-        <span class="label"><b>下载</b><span class="bar"></span>Downloads</span>
+        <span class="kicker"><span class="dot"></span><b>下载</b><i></i>DOWNLOADS</span>
         <h2 class="h-2" style="margin-top:16px">原始数据和整包图片</h2>
         <p class="lede">数据表是 Kaglorn 发布的原文件，原样提供。整包图片按性别分成三个压缩包，里面的目录结构和原仓库一致。</p>
       </div>

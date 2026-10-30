@@ -92,7 +92,11 @@ export function splitLines(el) {
 
 export function initReveal(root = document) {
   $$('[data-split]', root).forEach(splitLines);
-  const items = $$('[data-reveal], [data-split]', root);
+  // 需要描线的 SVG：按每条路径的实际长度设置虚线
+  $$('[data-draw]', root).forEach((svg) => svg.querySelectorAll('path, circle, ellipse, line, polyline').forEach((p) => {
+    try { p.style.setProperty('--len', Math.ceil(p.getTotalLength()) + 1); } catch { /* 不支持就直接显示 */ }
+  }));
+  const items = $$('[data-reveal], [data-split], [data-strip], [data-draw]', root);
   if (reduceMotion || !('IntersectionObserver' in window)) { items.forEach((el) => el.classList.add('is-in')); return; }
   const io = new IntersectionObserver((entries) => {
     entries.forEach((en) => {
