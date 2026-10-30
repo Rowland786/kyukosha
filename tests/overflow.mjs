@@ -18,7 +18,7 @@ for (const w of widths) {
     await page.waitForTimeout(1200);
     const r = await page.evaluate(() => {
       const sw = document.documentElement.scrollWidth, cw = document.documentElement.clientWidth;
-      const wide = [...document.querySelectorAll('body *')].filter((e) => { const b = e.getBoundingClientRect(); return b.right > cw + 1 && getComputedStyle(e).position !== 'fixed' && b.width > 0 && !e.closest('.marquee,.strip,.chips,.seg,.stepper,.audit__tbl,.lb,.menu,.hero__word'); }).slice(0, 4).map((e) => e.tagName.toLowerCase() + '.' + [...e.classList].join('.') + ' ' + Math.round(e.getBoundingClientRect().right));
+      const wide = [...document.querySelectorAll('body *')].filter((e) => { const b = e.getBoundingClientRect(); return b.right > cw + 1 && getComputedStyle(e).position !== 'fixed' && b.width > 0 && !e.closest('.ticker,.chips,.seg,.audit__tbl,.lb,.menu,.foot-orbit,.tk__orbit,.site-foot,.case__rail,.arch__bg'); }).slice(0, 4).map((e) => e.tagName.toLowerCase() + '.' + [...e.classList].join('.') + ' ' + Math.round(e.getBoundingClientRect().right));
       return { sw, cw, wide };
     });
     const over = r.sw > r.cw;

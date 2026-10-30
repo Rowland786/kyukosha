@@ -75,5 +75,5 @@
 @media (max-width: 960px) {
   .rp { grid-template-columns: minmax(0, 1fr); }
   .rp__scene { position: relative; top: 0; height: 38vh; min-height: 240px; border-right: 0; border-bottom: 1px solid var(--line); }
-  .rp__log::before { display: none; }
+  .rp__log::before, .rp__corner--tl { display: none; }
 }
